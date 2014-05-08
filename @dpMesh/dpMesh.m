@@ -4,10 +4,10 @@
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
 
-classdef dpMesh < handle & toolsObject
+classdef dpMesh < handle
     properties (GetAccess=protected)
         project % project name, works also for .geo, .msh etc, WITHOUT extension and .
-        geoFiles % contents of .geo files
+        geoFile % contents of .geo file
         msh % all the topological mesh data
         charts % all the coordinate systems (charts) of the modelling domain
         chartsActive % which one is active or default
@@ -34,36 +34,55 @@ classdef dpMesh < handle & toolsObject
             workingDir = dpInit(); % dpInit needs to be in Matlab path
             this.gmshPath = [workingDir 'gmsh\gmsh.exe']; % this works now only in Windows
             % init mesh reader properties
-            this.reader.supportedTypes.names = {'vtx','edg','tri','quad','tet','hex','pri','pyr','edg2','tri2','tet2'}; 
-            this.reader.supportedTypes.comsol.names = {'vtx','edg','tri','quad','tet','hex','pri','pyr'}; 
-            this.reader.supportedTypes.gmsh.types = [15 1 2 3 4 5 6 7 8 9 11]; % these are gmsh types
+            this.reader.supportedTypes.names = {'vtx','edg','tri','quad','tet','hex','pri','pyr','edg2','tri2','tet2'};             
             this.reader.supportedTypes.vertices = [1 2 3 4 4 8 6 5 3 6 10]; % these are corresponding vertice numbers            
             this.reader.supportedTypes.dimension = [0 1 2 2 3 3 3 3 1 2 3]; % these are dimensions of supported types
+            this.reader.supportedTypes.comsol.names = {'vtx','edg','tri','quad','tet','hex','pri','pyr'}; 
+            this.reader.supportedTypes.gmsh.types = [15 1 2 3 4 5 6 7 8 9 11]; % these are gmsh types
         end
         %% Initial setters and comparable void functions 
         % (like interface to gmsh mesh generation and reading, load and save object data)
         % mesh related primary functions
         make(this,varargin); % generate mesh from from .geo file with Gmsh
-        read(this,varargin); % read mesh from .msh file        
+        read(this,varargin); % read mesh from .msh file       
+        load(this,varargin); % load msh from .mat file
+        save(this,varargin); % save msh to .mat file
+        % mesh related auxiliary
+        addGeoFileContents(this,varargin); % read geo file contents
         %% Getters 
         % Specification for return
         % msh=mesh struct 
-        % charts=array of charts 
+        % c=cell array        
         % m=matrix  
         % v=vector (or scalar)
         % s=scalar 
+        % st=struct
         % F=interpolant function
         % u=undefined / user should know       
         m = getCoordinates(this);
+        v = getElementNumbers(this,elementEntity);
+        v = getElementTags(this,elementEntity);
+        m = getElementTopology(this,elementEntity);
+        c = getElementsInUse(this,dim);
         msh = getMesh(this);
+        v = getnVolumes(this,elementEntity);
+        st = getTime(this);
         %% Setters
-        setCoordinates(this,coordinates,varargin);
-        %% Figure plotters (h=handle)        
+        setCoordinates(this,coordinates,varargin); % add coordinate system (nodes' locations)
+        setnVolumes(this); % compute areas, length, volumes of mesh entities        
+        %% Basic plotters (h=handle)
+        % mesh visualization
+        %h = plot1D(this,varargin);
+        h = plot2D(this,varargin);
+        %h = plot3D(this,varargin);
+        %h = plotPhysicalDomains1D(this,varargin);
+        h = plotPhysicalDomains2D(this,varargin);
+        %h = plotPhysicalDomains3D(this,varargin);
     end
     methods (Access=private)
         %% Getters
         s = getActiveChart(this) % use always this to get chart           
-        s = getSimplexNameByHighestDimension(this) % get the name of the simplex having model dimension          
+        s = getSimplexNameByHighestDimension(this) % get the name of the simplex having model dimension                  
         %% Setters
         setInitMesh(this,nmbElems);
         setRemoveNaNelems(this);
