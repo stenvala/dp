@@ -5,7 +5,7 @@
 % Created: Antti Stenvall (antti@stenvall.fi)
 
 function h = fig(varargin) % init figure
-defaults.fn = 1; % number for figure
+defaults.figure = 1; % number for figure
 defaults.height = 8;
 defaults.width = 8;
 defaults.fontSize = 10;
@@ -14,13 +14,13 @@ defaults.offsety = 5;
 defaults.axesPosition = 0;
 defaults.useLatex = 0;
 param = setDefaultParameters(defaults,varargin);
-if defaults.fn == 0
+if param.figure == 0
     h = nan;
     return
 end
 
 size = [param.offsetx param.offsety param.width param.height];
-h = figure(param.fn);
+h = figure(param.figure);
 set(gcf,'Unit','centimeters',...
     'PaperUnits','centimeters',...
     'position',size,...

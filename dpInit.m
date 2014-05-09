@@ -1,10 +1,10 @@
-%% init.m
+%% dpInit.m
 %
 % set modules of dp solver to Matlab path
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
 
-function varargout = init()
+function varargout = dpInit()
 
 now = strrep(mfilename('fullpath'),mfilename,'');
 
@@ -15,7 +15,7 @@ end
 
 %% Add modules to Matlab path
 modules = {'',... % for adding the objects and this file
-    'general',...
+    'common',...
     };
 
 % Set Modules to path

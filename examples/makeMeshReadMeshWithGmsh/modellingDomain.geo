@@ -1,18 +1,24 @@
-Z0 = 0; // Z-coordinate
-CharacteristicLength = 0.0003; // mesh size control
-SizeFactor = 1e-3; // some size factor
+// modellingDomain.geo
+//
+// example of a modelling domain, box inside a box, e.g. condensator with two materials
+//
+// Created: Antti Stenvall (antti@stenvall.fi)
+
+z0 = 0; // z-coordinate
+characteristicLength = 0.0003; // mesh size control
+sizeFactor = 1e-3; // size factor
 
 
 // Surroundings
-Point(1) = {-1*SizeFactor, -1*SizeFactor, Z0, CharacteristicLength};
-Point(2) = {-1*SizeFactor, 1*SizeFactor, Z0, CharacteristicLength};
-Point(3) = {1*SizeFactor, 1*SizeFactor, Z0, CharacteristicLength};
-Point(4) = {1*SizeFactor, -1*SizeFactor, Z0, CharacteristicLength};
+Point(1) = {-1*sizeFactor, -1*sizeFactor, z0, characteristicLength};
+Point(2) = {-1*sizeFactor, 1*sizeFactor, z0, characteristicLength};
+Point(3) = {1*sizeFactor, 1*sizeFactor, z0, characteristicLength};
+Point(4) = {1*sizeFactor, -1*sizeFactor, z0, characteristicLength};
 // Area inside
-Point(5) = {-0.5*SizeFactor, -0.5*SizeFactor, Z0, CharacteristicLength/2};
-Point(6) = {-0.5*SizeFactor, 0.5*SizeFactor, Z0, CharacteristicLength/2};
-Point(7) = {0.5*SizeFactor, 0.5*SizeFactor, Z0, CharacteristicLength/2};
-Point(8) = {0.5*SizeFactor, -0.5*SizeFactor, Z0, CharacteristicLength/2};
+Point(5) = {-0.5*sizeFactor, -0.5*sizeFactor, z0, characteristicLength/2};
+Point(6) = {-0.5*sizeFactor, 0.5*sizeFactor, z0, characteristicLength/2};
+Point(7) = {0.5*sizeFactor, 0.5*sizeFactor, z0, characteristicLength/2};
+Point(8) = {0.5*sizeFactor, -0.5*sizeFactor, z0, characteristicLength/2};
 
 // Lines for condensator box
 Line(1) = {1, 2};
