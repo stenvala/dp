@@ -19,14 +19,13 @@ classdef dpMesh < handle
      end
     methods (Access=public)
         %% Constructor (cannot be in separate file)
-        function this = dpMesh(project,dim) % initialize with fileName where to read/load the mesh/data
+        function this = dpMesh(project,varargin) % initialize with fileName where to read/load the mesh/data            
             if nargin > 0
-                this.project = project;
+               this.project = project;
             end
-            if nargin < 2
-                dim = 2; % default dimension
-            end
-            this.dim = dim;
+            defaults.dim = 2;            
+            param = setDefaultParameters(defaults,varargin);
+            this.dim = param.dim;
             this.initdata.time = clock;
             this.initdata.date = date;            
             this.charts = {};
@@ -34,19 +33,17 @@ classdef dpMesh < handle
             workingDir = dpInit(); % dpInit needs to be in Matlab path
             this.gmshPath = [workingDir 'gmsh\gmsh.exe']; % this works now only in Windows
             % init mesh reader properties
-            this.reader.supportedTypes.names = {'vtx','edg','tri','quad','tet','hex','pri','pyr','edg2','tri2','tet2'};             
-            this.reader.supportedTypes.vertices = [1 2 3 4 4 8 6 5 3 6 10]; % these are corresponding vertice numbers            
-            this.reader.supportedTypes.dimension = [0 1 2 2 3 3 3 3 1 2 3]; % these are dimensions of supported types
-            this.reader.supportedTypes.comsol.names = {'vtx','edg','tri','quad','tet','hex','pri','pyr'}; 
-            this.reader.supportedTypes.gmsh.types = [15 1 2 3 4 5 6 7 8 9 11]; % these are gmsh types
+            this.setInitReaderProperties();                   
         end
         %% Initial setters and comparable void functions 
         % (like interface to gmsh mesh generation and reading, load and save object data)
         % mesh related primary functions
-        make(this,varargin); % generate mesh from from .geo file with Gmsh
-        read(this,varargin); % read mesh from .msh file       
         load(this,varargin); % load msh from .mat file
+        make(this,varargin); % generate mesh from from .geo file with Gmsh        
+        read(this,varargin); % read mesh from .msh file   
+        readComsol(this,varargin); % read mesh from Comsol .mphtxt file
         save(this,varargin); % save msh to .mat file
+        write(this,varargin); % write msh to .msh file
         % mesh related auxiliary
         addGeoFileContents(this,varargin); % read geo file contents
         %% Getters 
@@ -60,16 +57,24 @@ classdef dpMesh < handle
         % F=interpolant function
         % u=undefined / user should know       
         m = getCoordinates(this);
+        m = getCoordinatesAtElementCenter(this,elementEntity);
         v = getElementNumbers(this,elementEntity);
         v = getElementTags(this,elementEntity);
         m = getElementTopology(this,elementEntity);
-        c = getElementsInUse(this,dim);
+        c = getElementsInUse(this,dim);        
         msh = getMesh(this);
+        s = getNumberOfElements(this,elementEntities);
         v = getnVolumes(this,elementEntity);
         st = getTime(this);
         %% Setters
         setCoordinates(this,coordinates,varargin); % add coordinate system (nodes' locations)
         setnVolumes(this); % compute areas, length, volumes of mesh entities        
+        % remove element entities
+        setRemoveElementEntities(this,elemEntity,tags);
+        % tag changers        
+        setTagsChange(this,from,to,elemEntity);
+        setTagsChangeByCoordFun(this,to,fun,elemEntity,from);
+        setTagsChangeByNearestCoord(this,to,coord,elemEntity);
         %% Basic plotters (h=handle)
         % mesh visualization
         %h = plot1D(this,varargin);
@@ -81,10 +86,12 @@ classdef dpMesh < handle
     end
     methods (Access=private)
         %% Getters
-        s = getActiveChart(this) % use always this to get chart           
-        s = getSimplexNameByHighestDimension(this) % get the name of the simplex having model dimension                  
+        s = getActiveChart(this) % use always this to get chart                   
+        s = getSimplexNameByHighestDimension(this) % get the name of the simplex having model dimension                          
         %% Setters
-        setInitMesh(this,nmbElems);
+        setInitElementEntities(this,nmbElems);
+        setInitReaderProperties(this);
         setRemoveNaNelems(this);
+        setRemoveUnusedElementEntities(this);
     end
 end

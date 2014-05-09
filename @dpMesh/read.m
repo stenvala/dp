@@ -39,7 +39,7 @@ nmbElems = str2num(elem);
 % Preallocate this amount of data for each element type
 % Preallocating too much does not take a lot of time, but if it is necessary to
 % allocate element by element it takes a lot of time
-this.setInitMesh(nmbElems);
+this.setInitElementEntities(nmbElems);
 % Go through all the elements that are defined
 for iElem = 1:nmbElems
     row = fgetl(fh);
@@ -59,8 +59,9 @@ for iElem = 1:nmbElems
     end
 end
 this.setRemoveNaNElems();
+this.setRemoveUnusedElementEntities();
 props.description = 'msh file coordinates';
-props.name = 'produced by read';
+props.name = 'gmsh';
 this.setCoordinates(coords,'properties',props);
 this.time.readMesh = toc;
 end
