@@ -7,6 +7,17 @@
 
 function setTagsChangeByCoordFun(this,to,fun,elemEntity,from)
 
+if iscell(elemEntity)
+   for k=1:length(elemEntity)
+       if nargin > 4
+            this.setTagsChange(to,fun,elemEntity{k},from);
+       else
+           this.setTagsChange(to,fun,elemEntity{k});
+       end
+   end
+    return;
+end
+
 values = feval(fun,getCoordinatesAtElementCenter(this,elemEntity));
 
 if nargin > 4 && ~isempty(from)

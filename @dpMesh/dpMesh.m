@@ -68,6 +68,7 @@ classdef dpMesh < handle
         st = getTime(this);
         %% Setters
         setCoordinates(this,coordinates,varargin); % add coordinate system (nodes' locations)
+        setCoordinatesTranslate(this,fun);
         setnVolumes(this); % compute areas, length, volumes of mesh entities        
         % remove element entities
         setRemoveElementEntities(this,elemEntity,tags);
@@ -79,15 +80,16 @@ classdef dpMesh < handle
         % mesh visualization
         %h = plot1D(this,varargin);
         h = plot2D(this,varargin);
-        %h = plot3D(this,varargin);
+        h = plot3D(this,varargin);
         %h = plotPhysicalDomains1D(this,varargin);
         h = plotPhysicalDomains2D(this,varargin);
-        %h = plotPhysicalDomains3D(this,varargin);
+        h = plotPhysicalDomains3D(this,varargin);
     end
     methods (Access=private)
         %% Getters
-        s = getActiveChart(this) % use always this to get chart                   
-        s = getSimplexNameByHighestDimension(this) % get the name of the simplex having model dimension                          
+        s = getActiveChart(this); % use always this to get chart        
+        s = getActiveChartInd(this);
+        s = getSimplexNameByHighestDimension(this); % get the name of the simplex having model dimension                          
         %% Setters
         setInitElementEntities(this,nmbElems);
         setInitReaderProperties(this);

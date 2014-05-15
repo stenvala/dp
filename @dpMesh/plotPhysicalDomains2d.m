@@ -9,7 +9,6 @@ function h = plotPhysicalDomains2d(this,varargin)
 defaults.colors = {'r','g','b','k','m','y'};
 defaults.order = 1;
 defaults.tags = sort(unique(this.getElementTags('tri')));
-defaults.fileName = this.project;
 defaults.faceColor = 'none';
 param = setDefaultParameters(defaults,varargin);
 
