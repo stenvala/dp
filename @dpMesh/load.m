@@ -7,7 +7,7 @@
 function load(this,varargin)
 defaults.fileName = [this.project '.mat'];
 param = setDefaultParameters(defaults,varargin);
-
+project = [];
 load(param.fileName);
 
 this.project = project;

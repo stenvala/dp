@@ -7,8 +7,12 @@
 function figAdjust(varargin)
 
 % properties that can be set
-params = {'lim','xlim','ylim','axis','view','caxis','xlabel','ylabel','zlabel','title'};
-funs = {{@xlim,@ylim},@xlim,@ylim,@axis,@view,@caxis,@xlabel,@ylabel,@zlabel,@title};
+params = {'lim','xlim','ylim','axis','view','caxis',...
+    'grid','box',...
+    'xlabel','ylabel','zlabel','title'};
+funs = {{@xlim,@ylim},@xlim,@ylim,@axis,@view,@caxis,...
+    @grid,@box,...
+    @xlabel,@ylabel,@zlabel,@title};
 for k=1:length(params)
     ind = find(strcmp(varargin,params{k}));
     if ~isempty(ind)

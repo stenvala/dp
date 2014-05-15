@@ -59,7 +59,7 @@ classdef dpMesh < handle
         m = getCoordinates(this);
         m = getCoordinatesAtElementCenter(this,elementEntity);
         v = getElementNumbers(this,elementEntity);
-        v = getElementTags(this,elementEntity);
+        v = getElementTags(this,elementEntityOrDim);
         m = getElementTopology(this,elementEntity);
         c = getElementsInUse(this,dim);        
         msh = getMesh(this);
@@ -81,19 +81,19 @@ classdef dpMesh < handle
         %h = plot1D(this,varargin);
         h = plot2D(this,varargin);
         h = plot3D(this,varargin);
-        %h = plotPhysicalDomains1D(this,varargin);
+        h = plotPhysicalDomains1D(this,varargin);
         h = plotPhysicalDomains2D(this,varargin);
         h = plotPhysicalDomains3D(this,varargin);
     end
-    methods (Access=private)
+    methods (Access=protected)
         %% Getters
-        s = getActiveChart(this); % use always this to get chart        
-        s = getActiveChartInd(this);
+        s = getActiveChart(this); % use always this to get chart                
         s = getSimplexNameByHighestDimension(this); % get the name of the simplex having model dimension                          
         %% Setters
+        setDimensionToView(this);
         setInitElementEntities(this,nmbElems);
         setInitReaderProperties(this);
         setRemoveNaNelems(this);
-        setRemoveUnusedElementEntities(this);
+        setRemoveUnusedElementEntities(this);        
     end
 end

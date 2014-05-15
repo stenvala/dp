@@ -6,6 +6,6 @@
 
 function setCoordinatesTranslate(this,fun)
 
-this.charts{this.chartsActive}.coords = feval(fun,this.getActiveChart().coords);
+this.charts{this.chartsActive}.coords = feval(fun,this.getCoordinates());
 
 end

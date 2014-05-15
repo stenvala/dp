@@ -11,7 +11,10 @@ defaults.order = 1;
 defaults.tags = sort(unique(this.getElementTags('tet')));
 defaults.faceAlpha = 0.5;
 defaults.edgeColor = 'k';
+defaults.showTagColors = 1;
 param = setDefaultParameters(defaults,varargin);
+
+param.colors = getColorCell(length(param.tags),param.colors);
 
 h = fig(varargin{:});
 
@@ -19,14 +22,14 @@ c = this.getCoordinates();
 t = this.getElementTopology('tet');
 tags = this.getElementTags('tet');
 for k=1:length(param.tags)
-    if length(param.colors) < k
-       param.colors{k} = rand(1,3); 
-    end      
     tetramesh(t(tags == param.tags(k),:),c,...
         'EdgeColor',param.edgeColor,'faceColor',param.colors{k},'faceAlpha',param.faceAlpha);
     hold on
 end
 hold off
+
+this.setDimensionToView();
+showTagColors('Physical Domains 3-D',param);
 
 figAdjust(varargin{:});
 

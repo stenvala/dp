@@ -24,13 +24,13 @@ newPath = path;
 for k=1:length(modules)
     newDir = [now modules{k}];
     if isempty(strfind(newPath,newDir)) % if does not yet exist
-        newPath = [newPath ';' newDir];
+        addpath(newDir);
     end
 end
-newPath = [newPath ';'];
 
-% Set path
-path(newPath);
+% add to path all the fileExchange tools
+dirs = genpath([now 'fileExchange']);
+addpath(dirs);
 
 disp('Matlab path data changed successfully.')
 disp('Initialization finished.')
