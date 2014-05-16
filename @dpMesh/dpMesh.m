@@ -76,6 +76,8 @@ classdef dpMesh < handle
         setTagsChange(this,from,to,elemEntity);
         setTagsChangeByCoordFun(this,to,fun,elemEntity,from);
         setTagsChangeByNearestCoord(this,to,coord,elemEntity);
+        %% Displayers
+        displayStatistics(this,varargin);
         %% Basic plotters (h=handle)
         % mesh visualization
         %h = plot1D(this,varargin);
@@ -88,7 +90,6 @@ classdef dpMesh < handle
     methods (Access=protected)
         %% Getters
         s = getActiveChart(this); % use always this to get chart                
-        s = getSimplexNameByHighestDimension(this); % get the name of the simplex having model dimension                          
         %% Setters
         setDimensionToView(this);
         setInitElementEntities(this,nmbElems);

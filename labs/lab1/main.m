@@ -18,25 +18,29 @@ msh = dpMesh(file);
 
 elementOrder = 1; % your code needs to work with 1 or 2
 % make mesh
-if ~exist([file '.mat'],'file') || 1
-    msh.make('order',1);
+mfileName = [file '-' num2str(elementOrder) '.mat'];
+
+if ~exist(mfileName,'file')
+    msh.make('order',elementOrder);
     msh.read();
-    msh.save();
+    msh.save('fileName',mfileName);
 end
 % or load mesh to save time (remember that element order is fixed in mesh
 % generation)
-msh.load();
+msh.load('fileName',mfileName);
 
 %% What lets visualize the mesh
 if 1
     msh.plot2D('figure',1); % plot mesh
     msh.plotPhysicalDomains2D('figure',2); % show different domains in mesh
     msh.plotPhysicalDomains1D('figure',3,'lineWidth',2); % plot physical boundaries        
+    % and display statistics
+    msh.displayStatistics();
 end
 %% Here you define the material properties
 
 % domain properties
-domain.labels = [2001 2002]; % refer to tags of modelling domain
+domain.labels = [2001 2002]; % refers to tags of modelling domain
 domain.material = {5.69,3.5}; % this is cell array so that values can be scalar, matrices, function handles etc.
 domain.source = {0,0}; % in this we define the source quantities in Poisson problems
 
@@ -51,6 +55,7 @@ prob = dpSolver();
 prob.initLaplace(boundary,domain);
 % solve with given mesh
 prob.solveLaplace(msh);
+
 %% Simple post-processing
 coords = msh.getCoordinates();
 if elementOrder == 1
@@ -61,5 +66,5 @@ end
 trisurf(el(:,1:3),...
     coords(:,1),...
     coords(:,2),...
-    prob.getLaplaceSolutionAtNodes(),...
+    prob.getLaplaceSolutionAtNodes(),... % note, you need to add this method too
     'edgecolor','none','facecolor','interp');

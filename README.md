@@ -10,3 +10,5 @@ This platform is utilized in course Numerical methods for field computations at 
 - 3-D Laplace problems
 - 2-D Poisson problems
 - Linear isotropic elasticity
+
+You might need the binary of Gmsh in folder gmsh!
