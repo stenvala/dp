@@ -1,6 +1,6 @@
 %% main.m
 %
-% First laboratory work: Laplace solver in 2-D
+% Second laboratory work: Poisson solver in 2-D
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
 
@@ -12,8 +12,8 @@ clc
 % define modelling domain with a .geo file
 file = 'modellingDomain';
 msh = dpMesh(file);
-% You are supposed to inherit dpMesh to dpMeshPro where you add your own
-% methods related to e.g. basis functions, they don't belong to solver class
+% Because you already have dpMeshPro from lab1, you can uncomment next line
+% and remove the previous
 % msh = dpMeshPro(file); 
 
 elementOrder = 1; % your code needs to work with 1 and 2
@@ -29,6 +29,7 @@ end
 % generation)
 msh.load('fileName',mfileName);
 
+
 %% What lets visualize the mesh
 if 1
     msh.plot2D('figure',1); % plot mesh
@@ -37,26 +38,28 @@ if 1
     % and display statistics
     msh.displayStatistics();
 end
-%% Here you define the material properties
+
+%% Set up problem
 
 % domain properties
-domain.labels = [2001 2002]; % refers to tags of modelling domain
-domain.material = {5.69,3.5}; % this is cell array so that values can be scalar, matrices, function handles etc.
-domain.source = {0,0}; % in this we define the source quantities in Poisson problems
+domain.labels = [2001 2002 2003];
+domain.material = {1,1/100,1}; % divide equation by 1e7 to get nice numbers
+domain.source = {1,0,0};
 
 % boundary conditions
-boundary.labels = [1001 1002 1003];
-boundary.type = {'neu','dir','dir'};
-boundary.value = {0,1,0};
+boundary.labels = [1001 1002 1003 1004];
+% find out boundary conditions yourself
+boundary.type = {};
+boundary.value = {};
 
 % construct solver object
 prob = dpSolver();
 % init Laplace problem
 prob.initLaplace(boundary,domain);
 % solve with given mesh
-prob.solveLaplace(msh);
+prob.solveLaplace(msh); % extend youd Laplace solver also for Poisson problems
 
-%% Simple post-processing. This is enough for your return
+%% Simple post-processing. This is not enough for your return
 coords = msh.getCoordinates();
 if elementOrder == 1
    el = msh.getElementTopology('tri');
@@ -66,5 +69,5 @@ end
 trisurf(el(:,1:3),...
     coords(:,1),...
     coords(:,2),...
-    prob.getLaplaceSolutionAtNodes(),... % note, you need to add this method too
+    prob.getLaplaceSolutionAtNodes(),... 
     'edgecolor','none','facecolor','interp');
