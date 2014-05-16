@@ -4,14 +4,17 @@
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
 
-function setCoordinates(this,coordinates,varargin)
+function s = setCoordinates(this,coordinates,varargin)
     defaults.properties = [];
+    defaults.name = '';
     defaults.chartsInd = length(this.charts)+1;
     defaults.chartsActive = defaults.chartsInd;
     
     param = setDefaultParameters(defaults,varargin);
 
     this.charts{param.chartsInd}.coords = coordinates;
-    this.charts{param.chartsInd}.properties = defaults.properties;
-    this.chartsActive = defaults.chartsActive;
+    this.charts{param.chartsInd}.properties = param.properties;
+    this.charts{param.chartsInd}.name = param.name;
+    this.chartsActive = param.chartsActive;    
+    s = param.chartsInd;
 end

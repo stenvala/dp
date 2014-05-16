@@ -13,5 +13,7 @@ This platform is utilized in course Numerical Methods for Field Computations at 
 
 Remember, you might need the binary of Gmsh in folder gmsh! Or you can modify the mesh making method.
 
-gmsh: http://geuz.org/gmsh/
-comsol: http://www.comsol.com/
+- gmsh: http://geuz.org/gmsh/
+- comsol: http://www.comsol.com/
+
+To get started in Matlab, you need to run dpInit.m

@@ -16,7 +16,7 @@ msh = dpMesh(file);
 % methods related to e.g. basis functions, they don't belong to solver class
 % msh = dpMeshPro(file); 
 
-elementOrder = 1; % your code needs to work with 1 and 2
+elementOrder = 1; % your code needs to work with 1 and 2 (why not make it independent of this?)
 % make mesh
 mfileName = [file '-' num2str(elementOrder) '.mat'];
 

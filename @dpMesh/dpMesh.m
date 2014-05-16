@@ -67,7 +67,9 @@ classdef dpMesh < handle
         v = getnVolumes(this,elementEntity);
         st = getTime(this);
         %% Setters
-        setCoordinates(this,coordinates,varargin); % add coordinate system (nodes' locations)
+        setCoordinates(this,coordinates,varargin); % add coordinate system (nodes' locations)        
+        setCoordinatesActive(this,indOrName); % change the active coordinate system
+        setCoordinatesName(this,name); % set name for the active coordinate system
         setCoordinatesTranslate(this,fun);
         setnVolumes(this); % compute areas, length, volumes of mesh entities        
         % remove element entities
