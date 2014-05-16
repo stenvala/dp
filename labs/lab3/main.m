@@ -32,9 +32,9 @@ end
 msh.load('fileName',mfileName);
 %% What lets visualize the mesh
 if 1
-    msh.plot2D('figure',1); % plot mesh
-    msh.plotPhysicalDomains2D('figure',2); % show different domains in mesh
-    msh.plotPhysicalDomains1D('figure',3,'lineWidth',2); % plot physical boundaries        
+    msh.plot2d('figure',1); % plot mesh
+    msh.plotPhysicalDomains2d('figure',2); % show different domains in mesh
+    msh.plotPhysicalDomains1d('figure',3,'lineWidth',2); % plot physical boundaries        
     % and display statistics
     msh.displayStatistics();
 end
@@ -75,7 +75,7 @@ newCoords = oldCoords(:,1:2)+strain*[scalex 0;0 scaley];
 msh.setCoordinates(newCoords,'name','deformed');
 % display, below the old coordinates
 msh.setCoordinatesActive('original');
-msh.plot2D('figure',1,'edgeColor','blue');
+msh.plot2d('figure',1,'edgeColor','blue');
 msh.setCoordinatesActive('deformed');
 hold on
-msh.plot2D('figure',0,'edgeColor','red');
+msh.plot2d('figure',0,'edgeColor','red');

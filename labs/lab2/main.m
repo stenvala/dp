@@ -32,9 +32,9 @@ msh.load('fileName',mfileName);
 
 %% What lets visualize the mesh
 if 1
-    msh.plot2D('figure',1); % plot mesh
-    msh.plotPhysicalDomains2D('figure',2); % show different domains in mesh
-    msh.plotPhysicalDomains1D('figure',3,'lineWidth',2); % plot physical boundaries        
+    msh.plot2d('figure',1); % plot mesh
+    msh.plotPhysicalDomains2d('figure',2); % show different domains in mesh
+    msh.plotPhysicalDomains1d('figure',3,'lineWidth',2); % plot physical boundaries        
     % and display statistics
     msh.displayStatistics();
 end
