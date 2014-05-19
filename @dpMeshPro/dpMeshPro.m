@@ -7,7 +7,7 @@ classdef dpMeshPro < dpMesh
     % Created: Antti Stenvall (antti@stenvall.fi)
     % Contributed:    
     
-    properties (GetAccess=protected)
+    properties (GetAccess=protected,SetAccess=protected)
         
     end
     methods (Access=public)
@@ -16,6 +16,9 @@ classdef dpMeshPro < dpMesh
             % call parent constructor
             this = this@dpMesh(varargin{:});
         end
+        
+    end
+    methods (Access=protected)
         
     end
     methods (Access=private)

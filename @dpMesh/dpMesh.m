@@ -1,6 +1,13 @@
 classdef dpMesh < handle
     % Mesh module for discrete problem solvers.
     %
+    % Flexible platform for constructing solvers that require underlying
+    % mesh for reason or another, like finite element method. This can be
+    % used in educational purposes. Then, students can use this class for
+    % generating meshes and dealing with them. Class can be extended to
+    % cover basis functions related operations etc (students SHOULD do
+    % this in computer labs).
+    %
     % varargin:
     %   - description {''}: description
     %   - dim {2}: dimension of the project, i.e. which are the highest order
@@ -11,7 +18,7 @@ classdef dpMesh < handle
     % Created: Antti Stenvall (antti@stenvall.fi)
     %
     
-    properties (GetAccess=protected)
+    properties (GetAccess=protected,SetAccess=protected)
         project % project name, works also for .geo, .msh etc, WITHOUT extension and .
         geoFile % contents of .geo file
         msh % all the topological mesh data

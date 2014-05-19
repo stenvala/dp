@@ -7,7 +7,7 @@ classdef dpPostProcess < handle
     % Created: Antti Stenvall (antti@stenvall.fi)
     % Contributed by:
     
-    properties (GetAccess=protected)
+    properties (GetAccess=protected,SetAccess=protected)
         
     end
     methods (Access=public)
@@ -16,6 +16,9 @@ classdef dpPostProcess < handle
             
         end
         %% Add all other functions to their own files like in dpMesh
+    end
+    methods (Access=protected)
+        
     end
     methods (Access=private)
         
