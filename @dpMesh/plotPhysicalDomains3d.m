@@ -1,13 +1,19 @@
-%% plotPhysicalDomains3d.m
+function h = plotPhysicalDomains3d(this,varargin)
+% Plot 3d elements with separate colors and display in command window.
 %
-% mesh plotting: display physical domains with separate colors
+% varargin:
+%   - colors {default}: color for edge groups based on tags
+%   - edgeColor {k}: color for edges of elements
+%   - faceAlpha {0.5}: color for faces
+%   - showTagColor {1}: display tag colors in command window
+%   - tags {all tet}: define which tags to plot
+%
+%   - see for more: help fig, help figAdjust
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
+%
 
-function h = plotPhysicalDomains3d(this,varargin)
-
-defaults.colors = {'r','g','b','k','m','y'};
-defaults.order = 1;
+defaults.colors = getDefaultColors();
 defaults.tags = sort(unique(this.getElementTags('tet')));
 defaults.faceAlpha = 0.5;
 defaults.edgeColor = 'k';
@@ -34,3 +40,4 @@ showTagColors('Physical Domains 3-D',param);
 figAdjust(varargin{:});
 
 %% TODO: support all element shapes 
+end

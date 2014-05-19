@@ -1,20 +1,26 @@
-%% setCoordinates.m
+function s = setCoordinates(this,coordinates,varargin)
+% Set new chart to object. Returns current chart index.
 %
-% save coordinates of a mesh
+% parameters:
+%   - coordinates: coordinates of each node
+%
+% varargin:
+%   - name {''}: name of chart, this can be used to change the chart
+%   - properties {[]}: properties for the chart
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
+%
 
-function s = setCoordinates(this,coordinates,varargin)
-    defaults.properties = [];
-    defaults.name = '';
-    defaults.chartsInd = length(this.charts)+1;
-    defaults.chartsActive = defaults.chartsInd;
-    
-    param = setDefaultParameters(defaults,varargin);
+defaults.properties = [];
+defaults.name = '';
+defaults.chartsInd = length(this.charts)+1;
+defaults.chartsActive = defaults.chartsInd;
 
-    this.charts{param.chartsInd}.coords = coordinates;
-    this.charts{param.chartsInd}.properties = param.properties;
-    this.charts{param.chartsInd}.name = param.name;
-    this.chartsActive = param.chartsActive;    
-    s = param.chartsInd;
+param = setDefaultParameters(defaults,varargin);
+
+this.charts{param.chartsInd}.coords = coordinates;
+this.charts{param.chartsInd}.properties = param.properties;
+this.charts{param.chartsInd}.name = param.name;
+this.chartsActive = param.chartsActive;
+s = param.chartsInd;
 end

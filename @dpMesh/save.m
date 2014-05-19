@@ -1,10 +1,11 @@
-%% save.m
+function save(this,varargin)
+% Save project to .mat file.
 %
-% save project to .mat file
+% varargin:
+%   - fileName {this.project.mat}: where to save the data
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
-
-function save(this,varargin)
+%
 
 defaults.fileName = [this.project '.mat'];
 param = setDefaultParameters(defaults,varargin);

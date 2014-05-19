@@ -1,6 +1,4 @@
-%% main3D.m
-%
-% example of converting 3D comsol mesh to gmsh mesh and changing element tags
+%% Example of converting 3D comsol mesh to gmsh mesh and changing element tags
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
 clear all;
@@ -10,7 +8,7 @@ clc
 %% Initialize mesh
 project = 'modellingDomain3D';
 
-msh = dpMesh(project,'dim',3);
+msh = dpMesh('project',project,'dim',3);
 % read mesh
 msh.readComsol();
 % change some tags on the boundary
@@ -31,7 +29,7 @@ msh.setRemoveElementEntities('edg');
 msh.write();
 
 %% Visualize mesh (from boundary)
-msh.plotPhysicalDomains2D('axis','equal',...
+msh.plotPhysicalDomains2d('axis','equal',...
     'figure',1,'offsetx',1,'title','From Comsol mesh',...
     'faceColor','white','xlabel','$x$','ylabel','$y$','zlabel','$z$',...
     'useLatex',1);

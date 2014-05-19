@@ -1,11 +1,11 @@
-%% getElementTags.m
+function v = getElementTags(this,elementEntityOrDim)
+% Return element tags of given dimension or type
 %
-% returns element tags for element type or all existing tags for dimension
-% (unique)
+% parameters:
+%   - elementEntityOrDim: element short name (string) or dimension (int)
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
-
-function v = getElementTags(this,elementEntityOrDim)
+%
 
 if isnumeric(elementEntityOrDim)
     tags = [];

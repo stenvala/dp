@@ -1,8 +1,8 @@
-%% main.m
-%
-% Second laboratory work: Poisson solver in 2-D
+%% Computer lab: Poisson solver in 2-D
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
+% Contributed:
+%
 
 clear all;
 close all;
@@ -11,7 +11,7 @@ clc
 %% Initialize mesh
 % define modelling domain with a .geo file
 file = 'modellingDomain';
-msh = dpMesh(file);
+msh = dpMesh('project',file);
 % Because you already have dpMeshPro from lab1, you can uncomment next line
 % and remove the previous
 % msh = dpMeshPro(file); 

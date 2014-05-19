@@ -1,10 +1,11 @@
-%% getnVolumes.m
+function v = getnVolumes(this, elementEntity)
+% Return n-volume of given element entity.
 %
-% return n-volume of given element entity
+% parameters:
+%   - elementEntity: short name for element
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
-
-function v = getnVolumes(this, elementEntity)
+%
 
 try
     v = this.msh.(elementEntity).nvol;

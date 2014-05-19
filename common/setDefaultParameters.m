@@ -1,12 +1,14 @@
-%% setDefaultParameters.m
+function def = setDefaultParameters(def,arr,subvalue)
+% Set default parameters from a property->value list to struct
 %
-% add default values to a cell array if those don't exist yet.
-% this is of matlab style {propertyName,propertyValue} given in varargin
-% and output is struct, if subvalue is given then it is searched from array
+% parameters:
+%   - def: default values
+%   - arr: property->value list struct
+%   - subvalue: is sub property->value list is searcher from struct
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
+%
 
-function def = setDefaultParameters(def,arr,subvalue)
 f = fields(def);
 if nargin > 2 && ~isempty(subvalue)
     subInd = find(strcmp(arr,subvalue),1);

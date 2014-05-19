@@ -1,8 +1,10 @@
-%% getElementTopology.m
+function v = getElementTopology(this,elementEntity)
+% Get element topology in terms of defined nodes.
+%
+% parameters:
+%   - elementEntity: short name for element
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
-
-function v = getElementTopology(this,elementEntity)
 
 try
     v = this.msh.(elementEntity).elems;

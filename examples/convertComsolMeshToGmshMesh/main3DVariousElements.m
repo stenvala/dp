@@ -1,6 +1,4 @@
-%% main3DVariousElements.m
-%
-% example of converting comsol mesh to gmsh mesh and changing element tags
+%% Example of converting comsol mesh to gmsh mesh and changing element tags
 % when several different element types are present
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
@@ -11,7 +9,7 @@ clc
 %% Initialize mesh
 project = 'modellingDomain3DVariousElements';
 
-msh = dpMesh(project,'dim',3);
+msh = dpMesh('project',project,'dim',3);
 % read mesh
 msh.readComsol();
 % remove element entities
@@ -34,7 +32,5 @@ msh.setTagsChange(allTags,2003,'pyr');
 msh.write();
 
 m = msh.getMesh();
-m.quad.elems(1,:)
-
 
 %% Some basic operation with the msh object

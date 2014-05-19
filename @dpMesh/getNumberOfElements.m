@@ -1,13 +1,15 @@
-%% getNumberOfElements.m
+function s = getNumberOfElements(this,elementTypes)
+% Get number of elements
 %
-% get number of elements
+% parameters:
+%   - elementEntity {all possible}: short name for element (string or cell)
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
 
-function s = getNumberOfElements(this,elementTypes)
-
 if nargin < 2
     elementTypes = this.reader.supportedTypes.names;
+elseif ~iscell(elementTypes)
+    elementTypes = {elementTypes};
 end
 
 s = 0;

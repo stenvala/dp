@@ -1,17 +1,21 @@
-%% plot2d.m
+function h = plot2d(this,varargin)
+% Plot 2d elements.
 %
-% plot 2d elements
+% varargin:
+%   - edgeColor {default1}: color for edges
+%   - faceColor {none}: color for faces
+%
+%   - see for more: help fig, help figAdjust
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
-
-function h = plot2d(this,varargin)
+%
 
 if this.dim == 2
     defaults.view = [0 90];
 end
 
 defaults.faceColor = 'none';
-defaults.edgeColor = 'blue';
+defaults.edgeColor = getDefaultColors(1);
 param = setDefaultParameters(defaults,varargin);
 
 h = fig(varargin{:});
@@ -34,3 +38,6 @@ end
 hold off
 view(defaults.view);
 figAdjust(varargin{:});
+
+end
+

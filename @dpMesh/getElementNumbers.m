@@ -1,8 +1,11 @@
-%% getElementNumbers.m
+function v = getElementNumbers(this,elementEntity)
+% Get numbers of elements. Each element has an unique number.
+%
+% parameters:
+%   - elementEntity: short name for element
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
-
-function v = getElementNumbers(this,elementEntity)
+%
 
 try
     v = this.msh.(elementEntity).nums;

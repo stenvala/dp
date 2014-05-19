@@ -1,7 +1,8 @@
-%% getTime.m
+function st = getTime(this)
+% Get time struct of mesh.
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
+%
 
-function st = getTime(this)
 st = this.time;
 end

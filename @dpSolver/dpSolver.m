@@ -1,11 +1,17 @@
-%% dpSolver.m
+classdef dpSolver < handle
+% Solver class for dp.
 %
-% solver module for dp
+% Includes following solver:
+%   - Laplace solver
+%   - ...
+%
+% varargin:
+%   -
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
 % Contributed by:
+%
 
-classdef dpSolver < handle
     properties (GetAccess=protected)
   
      end

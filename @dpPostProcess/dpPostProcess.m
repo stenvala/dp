@@ -1,14 +1,15 @@
-%% dpPostProcess.m
-%
-% post processing module for dp
-%
-% Created: Antti Stenvall (antti@stenvall.fi)
-% Contributed by:
-
 classdef dpPostProcess < handle
+    % Post processing class for dp
+    %
+    % varargin:
+    %   -
+    %
+    % Created: Antti Stenvall (antti@stenvall.fi)
+    % Contributed by:
+    
     properties (GetAccess=protected)
-  
-     end
+        
+    end
     methods (Access=public)
         %% Constructor
         function this = dpPostProcess(varargin)

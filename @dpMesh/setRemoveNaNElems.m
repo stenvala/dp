@@ -1,14 +1,14 @@
-%% setRemoveNaNElems.m
-%
-% Remove NaN elements. This is handy when preallocation of element space is
-% done.
+function setRemoveNaNElems(this)
+% Remove NaN elements from the end of element topological structure.
+% 
+% This is handy when preallocation of element space is done, or when
+% elements are removed, tags can just be set to NaN.
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
-
-function setRemoveNaNElems(this)
+%
 
 for k=1:length(this.reader.supportedTypes.names)
-    
+   
     until = find(isnan(this.msh.(this.reader.supportedTypes.names{k}).tags));
     if ~isempty(until)
         until = until - 1;

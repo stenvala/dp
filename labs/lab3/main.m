@@ -1,8 +1,8 @@
-%% main.m
-%
-% Laboratory work: linear isotropic elasticity - plane strain 
+%% Computer lab: linear isotropic elasticity - plane strain 
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
+% Contributed:
+%
 
 clear all;
 close all;
@@ -13,7 +13,7 @@ clc
 file = 'modellingDomainSparse'; % this will produce a mesh close to Clough's original mesh
 %file = 'modellingDomain';
 
-msh = dpMesh(file);
+msh = dpMesh('project',file);
 % Because you already have dpMeshPro from lab1, you can uncomment next line
 % and remove the previous
 % msh = dpMeshPro(file); 

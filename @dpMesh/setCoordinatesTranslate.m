@@ -1,10 +1,11 @@
-%% setCoordinatesTranslate.m
+function setCoordinatesTranslate(this,fun)
+% Translate current coordinates according to a function
 %
-% Translate coordinates
+% parameters:
+%   - fun: function handle that takes in n*3 matrix
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
-
-function setCoordinatesTranslate(this,fun)
+%
 
 this.charts{this.chartsActive}.coords = feval(fun,this.getCoordinates());
 

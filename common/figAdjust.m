@@ -1,10 +1,23 @@
-%% figAdjust.m
+function figAdjust(varargin)
+% Adjust some figure properties easily.
+% 
+% No default values for varargin give, if you want to use them.
 %
-% adjust some figure properties based on data given at varargin
+% varargin:
+%   - axis
+%   - box
+%   - caxis
+%   - grid
+%   - lim: set xlim and ylim to same value
+%   - title
+%   - xlabel
+%   - xlim
+%   - ylabel
+%   - ylim
+%   - zlabel
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
-
-function figAdjust(varargin)
+%
 
 % properties that can be set
 params = {'lim','xlim','ylim','axis','view','caxis',...

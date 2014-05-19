@@ -1,16 +1,12 @@
-%% setnVolumes.m
+function setnVolumes(this)
+% Compute lengths, surface areas and volumes to element entities in Cartesian metric
 %
-% compute lengths, surface areas and volumes to element entities in
-% Cartesian metric
-%
+% Saves to this.msh.(elementEntity).nvol the n-volume of the n-element
 % Supports currently following element entities:
 %   - tri
-%
-% save to this.msh.(elementEntity).nvol the n-volume of the n-element
 % 
 % Created: Antti Stenvall (antti@stenvall.fi)
-
-function setnVolumes(this)
+%
 
 c = this.getCoordinates();
 
@@ -24,5 +20,5 @@ if isfield(this.msh,'tri') && size(this.msh.tri.elems,1) > 0
     (jnode(:,2)-inode(:,2)).*(knode(:,1)-inode(:,1)));
 end
 
-
+end
     

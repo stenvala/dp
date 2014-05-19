@@ -1,10 +1,12 @@
-%% displayStatistics.m
+function displayStatistics(this,varargin)
+% Display statistics of the mesh.
 %
-% show all element and node data
+% varargin:
+%   - basic {0}: don't show statistics by element type
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
+%
 
-function displayStatistics(this,varargin)
 defaults.basic = 0;
 param = setDefaultParameters(defaults,varargin);
 

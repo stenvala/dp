@@ -1,102 +1,99 @@
-%% dpMesh.m
-%
-% mesh module for dp
-%
-% Created: Antti Stenvall (antti@stenvall.fi)
-
 classdef dpMesh < handle
+    % Mesh module for discrete problem solvers.
+    %
+    % varargin:
+    %   - description {''}: description
+    %   - dim {2}: dimension of the project, i.e. which are the highest order
+    %     elements to mesh    
+    %   - project {''}: name of the project
+    %   - title {''}: title
+    %
+    % Created: Antti Stenvall (antti@stenvall.fi)
+    %
+    
     properties (GetAccess=protected)
         project % project name, works also for .geo, .msh etc, WITHOUT extension and .
         geoFile % contents of .geo file
         msh % all the topological mesh data
         charts % all the coordinate systems (charts) of the modelling domain
         chartsActive % which one is active or default
-        initdata % some initial data
+        initdata % some initial data related to the project
         time % execution time related stuff
         dim % dimension of the modelling domain
-        gmshPath % path to gmsh (gmsh is used for mesh generation)        
+        gmshPath % path to gmsh (gmsh is used for mesh generation)
         reader % different reader properties
-     end
+    end
     methods (Access=public)
-        %% Constructor (cannot be in separate file)
-        function this = dpMesh(project,varargin) % initialize with fileName where to read/load the mesh/data            
-            if nargin > 0
-               this.project = project;
-            end
-            defaults.dim = 2;            
-            param = setDefaultParameters(defaults,varargin);
-            this.dim = param.dim;
-            this.initdata.time = clock;
-            this.initdata.date = date;            
-            this.charts = {};
-            this.chartsActive = 0;
-            workingDir = dpInit(); % dpInit needs to be in Matlab path
-            this.gmshPath = [workingDir 'gmsh\gmsh.exe']; % this works now only in Windows
-            % init mesh reader properties
-            this.setInitReaderProperties();                   
+        %% Constructor
+        function this = dpMesh(varargin)
+            this = this.constructor(varargin{:});            
         end
-        %% Initial setters and comparable void functions 
-        % (like interface to gmsh mesh generation and reading, load and save object data)
-        % mesh related primary functions
-        load(this,varargin); % load msh from .mat file
-        make(this,varargin); % generate mesh from from .geo file with Gmsh        
-        read(this,varargin); % read mesh from .msh file   
-        readComsol(this,varargin); % read mesh from Comsol .mphtxt file
-        save(this,varargin); % save msh to .mat file
-        write(this,varargin); % write msh to .msh file
-        % mesh related auxiliary
-        addGeoFileContents(this,varargin); % read geo file contents
-        %% Getters 
-        % Specification for return
-        % msh=mesh struct 
-        % c=cell array        
-        % m=matrix  
+        %% mesh <-> living object interface
+        load(this,varargin); 
+        make(this,varargin);
+        read(this,varargin);
+        readComsol(this,varargin);
+        save(this,varargin);
+        write(this,varargin);
+        addGeoFileContents(this,varargin);
+        %% Getters
+        % Specification for return        
+        % c=cell array
+        % m=matrix
         % v=vector (or scalar)
-        % s=scalar 
+        % s=scalar
         % st=struct
         % F=interpolant function
-        % u=undefined / user should know       
+        % u=undefined / user should know
+        s = getDim(this);
         m = getCoordinates(this);
         m = getCoordinatesAtElementCenter(this,elementEntity);
+        [m v] = getElementsByTag(this,elementEntity,tag);
         v = getElementNumbers(this,elementEntity);
-        v = getElementTags(this,elementEntityOrDim);
+        v = getElementTags(this,elementEntity);
         m = getElementTopology(this,elementEntity);
-        c = getElementsInUse(this,dim);        
-        msh = getMesh(this);
+        c = getElementsInUse(this,dim);
+        st = getInitData(this);
+        st = getMesh(this);
         s = getNumberOfElements(this,elementEntities);
         v = getnVolumes(this,elementEntity);
         st = getTime(this);
         %% Setters
-        setCoordinates(this,coordinates,varargin); % add coordinate system (nodes' locations)        
-        setCoordinatesActive(this,indOrName); % change the active coordinate system
-        setCoordinatesName(this,name); % set name for the active coordinate system
+        s = setCoordinates(this,coordinates,varargin);
+        setCoordinatesActive(this,indOrName);
+        s = setCoordinatesName(this,name);
         setCoordinatesTranslate(this,fun);
-        setnVolumes(this); % compute areas, length, volumes of mesh entities        
+        setInitData(this,varargin);
+        setnVolumes(this);
         % remove element entities
         setRemoveElementEntities(this,elemEntity,tags);
-        % tag changers        
+        % tag changers
         setTagsChange(this,from,to,elemEntity);
         setTagsChangeByCoordFun(this,to,fun,elemEntity,from);
+        setTagsChangeBySubElementTag(this,to,elemEntity,subEntity,subTag,from);
         setTagsChangeByNearestCoord(this,to,coord,elemEntity);
         %% Displayers
+        displaySupportedElements(this,varargin);
         displayStatistics(this,varargin);
-        %% Basic plotters (h=handle)
+        %% Basic plotters 
+        % (h=handle)
         % mesh visualization
-        %h = plot1D(this,varargin);
-        h = plot2D(this,varargin);
-        h = plot3D(this,varargin);
-        h = plotPhysicalDomains1D(this,varargin);
-        h = plotPhysicalDomains2D(this,varargin);
-        h = plotPhysicalDomains3D(this,varargin);
+        % - see varargin for plot customization: help fig, help figAdjust
+        % h = plot1d(this,varargin);
+        h = plot2d(this,varargin);
+        h = plot3d(this,varargin);
+        h = plotPhysicalDomains1d(this,varargin);
+        h = plotPhysicalDomains2d(this,varargin);
+        h = plotPhysicalDomains3d(this,varargin);
     end
     methods (Access=protected)
         %% Getters
-        s = getActiveChart(this); % use always this to get chart                
+        s = getActiveChart(this); % use always this to get chart
         %% Setters
         setDimensionToView(this);
         setInitElementEntities(this,nmbElems);
         setInitReaderProperties(this);
         setRemoveNaNelems(this);
-        setRemoveUnusedElementEntities(this);        
+        setRemoveUnusedElementEntities(this);
     end
 end

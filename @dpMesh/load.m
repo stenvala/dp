@@ -1,10 +1,9 @@
-%% load.m
-%
-% load project from .mat file
+function load(this,varargin)
+% Initialize object from .mat file.
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
+%
 
-function load(this,varargin)
 defaults.fileName = [this.project '.mat'];
 param = setDefaultParameters(defaults,varargin);
 project = []; % because project is matlab function
@@ -18,6 +17,6 @@ this.chartsActive = chartsActive;
 this.initdata = initdata;
 this.time = time;
 this.dim = dim;
-this.gmshPath = gmshPath;
+%this.gmshPath = gmshPath; % let's not init this here
 this.reader = reader;
 end

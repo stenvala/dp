@@ -1,10 +1,13 @@
-%% make.m
+function make(this,varargin)
+% Generate mesh with gmsh, windows version.
 %
-% generate mesh with gmsh, windows version
+% parameters:
+%   - directory {working dir}: where the file is
+%   - fileName {this.project}: .geo/.msh file for input/output
+%   - order {1}: order of elements to be created
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
-
-function make(this,varargin)
+%
 
 defaults.directory = pwd;
 defaults.order = 1;

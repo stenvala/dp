@@ -1,10 +1,13 @@
-%% write.m
+function write(this,varargin)
+% Write mesh to .msh file.
 %
-% write mesh to gmsh mesh file
+% varargin:
+%   - fileName {this.project}: .msh file for writing
+%   - elemEntityOffset {1000}: give another tag for every element. Add this
+%     to their physical tag
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
-
-function write(this,varargin)
+%
 
 defaults.fileName = [this.project '.msh'];
 defaults.elemEntityOffset = 1000; % in gmsh we give two tags to the elements: physical and elementary entity.

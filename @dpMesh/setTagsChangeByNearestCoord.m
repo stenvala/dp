@@ -1,11 +1,16 @@
-%% setTagsChangeByNearestCoord
+function setTagsChangeByNearestCoord(this,to,coord,elemEntity)
+% Tag changer: determine tag change by searching the tag of the nearest coordinate.
 %
-% determine tag by searching the nearest coordinate and then change these
-% tags
+% Uses Cartesian metric.
+%
+% parameters:
+%   - to 
+%   - coord: 3*1 vector of the coordinates
+%   - elemEntity
+%   - from {all elements}: you can only set to change from some
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
-
-function setTagsChangeByNearestCoord(this,to,coord,elemEntity)
+%
 
 if iscell(elemEntity)
    for k=1:length(elemEntity)
@@ -23,3 +28,5 @@ minInd = find(dist == min(dist),1);
 from = this.msh.(elemEntity).tags(minInd);
 
 this.setTagsChange(from,to,elemEntity);
+
+end

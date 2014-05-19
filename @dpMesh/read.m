@@ -1,10 +1,12 @@
-%% read.m
+function read(this,varargin)
+% Read gmsh .msh file.
 %
-% generate mesh with gmsh, windows version
+% varargin:
+%   - directory {working dir}: where the file is
+%   - fileName {this.project}: .msh file for reading
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
-
-function read(this,varargin)
+%
 
 defaults.directory = pwd;
 defaults.fileName = this.project;

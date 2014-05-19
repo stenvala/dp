@@ -1,10 +1,12 @@
-%% readComsol.m
+function readComsol(this,varargin)
+% Read Comsol .mphtxt file.
 %
-% read Comsol .mphtxt file into dp mesh structure
+% varargin:
+%   - directory {working dir}: where the file is
+%   - fileName {this.project}: .mphtxt file for reading
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
-
-function readComsol(this,varargin)
+%
 
 defaults.fileName = [this.project '.mphtxt'];
 defaults.directory = pwd;

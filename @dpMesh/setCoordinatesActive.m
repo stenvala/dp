@@ -1,10 +1,12 @@
-%% setCoordinatesName.m
-%
-% set name for coordinate system
+function setCoordinatesActive(this,indOrName)
+% Set some chart active.
+% 
+% parameters:
+%   - indOrName: index (int) or name (string) of the chart
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
+%
 
-function setCoordinatesActive(this,indOrName)
 if isnumeric(indOrName)
     if indOrName > length(this.charts) || ...
             round(indOrName) ~= indOrName || indOrName < 1

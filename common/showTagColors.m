@@ -1,10 +1,12 @@
-%% showTagColors.m
+function showTagColors(title,param)
+% Show color of tags
 %
-% based on tag colors in param {colors, tags} display these pairs
+% parameters:
+%   - title: title for printing
+%   - param: struct with fields tags, colors
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
-
-function showTagColors(title,param)
+%
 
 str = '---------------------';
 
@@ -20,3 +22,5 @@ for k=1:min([length(param.tags) length(param.colors)])
    cprintf(rgb(param.colors{k}),[num2str(param.tags(k)) ': ' c '\n']);
 end
 disp(str)
+
+end

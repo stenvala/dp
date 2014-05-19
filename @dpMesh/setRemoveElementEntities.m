@@ -1,10 +1,12 @@
-%% setRemoveElementEntities.m
+function setRemoveElementEntities(this,elemEntity,tags)
+% Remove some element types (possibly only those having some tag)
 %
-% remove some element types (possibly only those having some tag)
+% parameters:
+%   - elemEntity: element type (string or cell) to be removed
+%   - tags {all}: which tags to remove
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
-
-function setRemoveElementEntities(this,elemEntity,tags)
+%
 
 if iscell(elemEntity)
     for k=1:length(elemEntity)
@@ -24,4 +26,6 @@ else
         this.msh.(elemEntity).tags(this.msh.(elemEntity).tags == tags(k)) = nan;
     end
     this.setRemoveNaNelems();
+end
+
 end

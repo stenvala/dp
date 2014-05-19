@@ -1,10 +1,13 @@
-%% setTagsChange.m
+function setTagsChange(this,from,to,elemType)
+% Tag changer: change number to another.
 %
-% tag changer: change number to another
+% parameters:
+%   - from 
+%   - to
+%   - elemType
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
 
-function setTagsChange(this,from,to,elemType)
 if iscell(elemType)
    for k=1:length(elemType)
        this.setTagsChange(from,to,elemType{k});

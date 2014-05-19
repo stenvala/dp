@@ -1,13 +1,14 @@
-%% load.m
+function addGeoFileContents(this,varargin)
+% Save .geo file contents.
 %
-% load project from .mat file
+% varargin:
+%   - fileName {[this.project].geo}
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
+%
 
-function addGeoFileContents(this,varargin)
 defaults.fileName = [this.project '.geo'];
-param = setDefaultParameters(defaults,varargin);
-
-this.geoFile.name = param.fileName;
-this.geoFile.contents = this.readFile(param.fileName);
+params = setDefaultParameters(defaults,varargin);
+this.geoFile.name = params.fileName;
+this.geoFile.contents = readFile(params.fileName);
 end

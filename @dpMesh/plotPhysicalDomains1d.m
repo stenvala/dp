@@ -1,13 +1,18 @@
-%% plotPhysicalDomains1d.m
+function h = plotPhysicalDomains1d(this,varargin)
+% Plot 1d elements with separate colors and display in command window.
 %
-% mesh plotting: display physical domains with separate colors
+% varargin:
+%   - colors {default}: color for edge groups based on tags
+%   - edgeColor {default1}: color for edges
+%   - lineWidth {1}: line width
+%   - showTagColor {1}: display tag colors in command window
+%
+%   - see for more: help fig, help figAdjust
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
+%
 
-function h = plotPhysicalDomains1d(this,varargin)
-
-defaults.colors = {'r','g','b','k','m','y'};
-defaults.order = 1;
+defaults.colors = getDefaultColors();
 defaults.tags = sort(this.getElementTags(1));
 defaults.lineWidth = 1;
 defaults.showTagColors = 1;

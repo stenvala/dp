@@ -1,10 +1,12 @@
-%% readFile.m
+function data = readFile(file) 
+% Read lines of file to cell array.
 %
-% read contents of a file to a cell array
+% parameters:
+%   - file: path to file to be read
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
+%
 
-function data = readFile(file) % read lines of file to cell array
 fid = fopen(file,'r');
 tline = fgetl(fid);
 data = {};

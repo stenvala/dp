@@ -1,13 +1,17 @@
-%% plotPhysicalDomains2d.m
+function h = plotPhysicalDomains2d(this,varargin)
+% Plot 2d elements with separate colors and display in command window.
 %
-% mesh plotting: display physical domains with separate colors
+% varargin:
+%   - colors {default}: color for edge groups based on tags
+%   - faceColor {none}: color for faces
+%   - showTagColor {1}: display tag colors in command window
+%
+%   - see for more: help fig, help figAdjust
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
+%
 
-function h = plotPhysicalDomains2d(this,varargin)
-
-defaults.colors = {'r','g','b','k','m','y'};
-defaults.order = 1;
+defaults.colors = getDefaultColors();
 defaults.tags = sort(this.getElementTags(2));
 defaults.faceColor = 'none';
 defaults.showTagColors = 1;

@@ -1,11 +1,20 @@
-%% fig.m
+function h = fig(varargin) % init figure
+% Launch custom figure
 %
-% launch figure whose size is controlled in a nice way
+% varargin:
+%   - axesPosition {0}: give custom position for axes with 4-vector
+%   - figure {1}: number of figure, if 0 do nothing
+%   - fontSize {10}: font-size in figure
+%   - height {8}: height of figure in cm
+%   - offsetx {5}: difference between figure's left edge and screen
+%   - offsety {5}: difference between figure's bottom edge and screen
+%   - useLatex {0}: use latex interpreter in layout
+%   - width {8}: width of figure in cm
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
+%
 
-function h = fig(varargin) % init figure
-defaults.figure = 1; % number for figure
+defaults.figure = 1;
 defaults.height = 8;
 defaults.width = 8;
 defaults.fontSize = 10;

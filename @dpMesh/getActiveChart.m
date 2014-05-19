@@ -1,8 +1,7 @@
-%% getActiveChart.m
-%
-% get string name for simplex of defined dimension
+function s = getActiveChart(this)
+% Get active chart system.
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
+%
 
-function s = getActiveChart(this)
 s = this.charts{this.chartsActive};

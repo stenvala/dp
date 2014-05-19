@@ -1,11 +1,13 @@
-%% setTagsChangeByCoordFun.m
+function setTagsChangeByCoordFun(this,to,fun,elemEntity,from)
+% Tag changer: change element tag when the center coordinate fulfils condition
 %
-% Change element coordinates when the center coordinate fulfils condition
-% given by fun
+% parameters:
+%   - to 
+%   - fun (takes in matrix n*3 of element center coordinates)
+%   - elemEntity
+%   - from {all elements}: you can only set to change from some
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
-
-function setTagsChangeByCoordFun(this,to,fun,elemEntity,from)
 
 if iscell(elemEntity)
    for k=1:length(elemEntity)
