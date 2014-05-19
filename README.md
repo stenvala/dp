@@ -17,3 +17,5 @@ Remember, you might need the binary of Gmsh in folder gmsh! Or you can modify th
 - comsol: http://www.comsol.com/
 
 To get started in Matlab, you need to run dpInit.m
+
+- Also wiki pages are set-up: https://github.com/stenvala/dp/wiki
