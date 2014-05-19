@@ -54,16 +54,16 @@ classdef dpMesh < handle
         % u=undefined / user should know
         s = getDim(this);
         m = getCoordinates(this);
-        m = getCoordinatesAtElementCenter(this,elementEntity);
-        [m v] = getElementsByTag(this,elementEntity,tag);
-        v = getElementNumbers(this,elementEntity);
-        v = getElementTags(this,elementEntity);
-        m = getElementTopology(this,elementEntity);
+        m = getCoordinatesAtElementCenter(this,elemType);
+        [m v] = getElementsByTag(this,elemType,tag);
+        v = getElementNumbers(this,elemType);
+        v = getElementTags(this,elemType);
+        m = getElementTopology(this,elemType);
         c = getElementsInUse(this,dim);
         st = getInitData(this);
         st = getMesh(this);
-        s = getNumberOfElements(this,elementEntities);
-        v = getnVolumes(this,elementEntity);
+        s = getNumberOfElements(this,elemType);
+        v = getnVolumes(this,elemType);
         st = getTime(this);
         %% Setters
         s = setCoordinates(this,coordinates,varargin);
@@ -73,12 +73,12 @@ classdef dpMesh < handle
         setInitData(this,varargin);
         setnVolumes(this);
         % remove element entities
-        setRemoveElementEntities(this,elemEntity,tags);
+        setRemoveElementEntities(this,elemType,tags);
         % tag changers
-        setTagsChange(this,from,to,elemEntity);
-        setTagsChangeByCoordFun(this,to,fun,elemEntity,from);
-        setTagsChangeBySubElementTag(this,to,elemEntity,subEntity,subTag,from);
-        setTagsChangeByNearestCoord(this,to,coord,elemEntity);
+        setTagsChange(this,from,to,elemType);
+        setTagsChangeByCoordFun(this,to,fun,elemType,from);
+        setTagsChangeBySubElementTag(this,to,elemType,subType,subTag,from);
+        setTagsChangeByNearestCoord(this,to,coord,elemType);
         %% Displayers
         displaySupportedElements(this,varargin);
         displayStatistics(this,varargin);

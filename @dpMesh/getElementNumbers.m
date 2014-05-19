@@ -1,17 +1,17 @@
-function v = getElementNumbers(this,elementEntity)
+function v = getElementNumbers(this,elemType)
 % Get numbers of elements. Each element has an unique number.
 %
 % parameters:
-%   - elementEntity: short name for element
+%   - elemType: short name for element
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
 %
 
 try
-    v = this.msh.(elementEntity).nums;
+    v = this.msh.(elemType).nums;
 catch e
     exception = MException('SetError:RequestedDataNotSet', ...
-        ['Element entities ' elementEntity ' are not initialized']);
+        ['Element entities ' elemType ' are not initialized']);
     throw(exception);
 end
 

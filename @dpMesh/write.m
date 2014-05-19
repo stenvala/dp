@@ -3,14 +3,14 @@ function write(this,varargin)
 %
 % varargin:
 %   - fileName {this.project}: .msh file for writing
-%   - elemEntityOffset {1000}: give another tag for every element. Add this
+%   - elemTypeOffset {1000}: give another tag for every element. Add this
 %     to their physical tag
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
 %
 
 defaults.fileName = [this.project '.msh'];
-defaults.elemEntityOffset = 1000; % in gmsh we give two tags to the elements: physical and elementary entity.
+defaults.elemTypeOffset = 1000; % in gmsh we give two tags to the elements: physical and elementary entity.
 % in dp we only save the physical, ee tag is given by adding a number to
 % physical tag number and this determines the offset for that
 param = setDefaultParameters(defaults,varargin);
@@ -50,7 +50,7 @@ for p=1:length(this.reader.supportedTypes.names)
             fprintf(f,[lineInit '\n'],...
                 nums(k),...
                 this.reader.supportedTypes.gmsh.types(p),...
-                2,tags(k),tags(k)+param.elemEntityOffset,...
+                2,tags(k),tags(k)+param.elemTypeOffset,...
                 nodes{:});
         end
     end    

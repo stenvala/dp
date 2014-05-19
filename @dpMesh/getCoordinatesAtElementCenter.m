@@ -1,14 +1,14 @@
-function m = getCoordinatesAtElementCenter(this,elementEntity)
+function m = getCoordinatesAtElementCenter(this,elemType)
 % Get coordinates at element centers
 %
 % parameters:
-%   - elementEntity: element short name
+%   - elemType: element short name
 % 
 % Created: Antti Stenvall (antti@stenvall.fi)
 %
 
 c = this.getCoordinates();
-e = this.msh.(elementEntity).elems;
+e = this.msh.(elemType).elems;
 elems = size(e,1);
 nodes = size(e,2);
 m = [mean(reshape(c(e,1),elems,nodes),2) ...

@@ -2,7 +2,7 @@ function s = getNumberOfElements(this,elementTypes)
 % Get number of elements
 %
 % parameters:
-%   - elementEntity {all possible}: short name for element (string or cell)
+%   - elemType {all possible}: short name for element (string or cell)
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
 

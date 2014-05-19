@@ -1,7 +1,7 @@
 function setnVolumes(this)
 % Compute lengths, surface areas and volumes to element entities in Cartesian metric
 %
-% Saves to this.msh.(elementEntity).nvol the n-volume of the n-element
+% Saves to this.msh.(elemType).nvol the n-volume of the n-element
 % Supports currently following element entities:
 %   - tri
 % 

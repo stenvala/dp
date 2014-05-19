@@ -1,16 +1,16 @@
-function v = getElementTopology(this,elementEntity)
+function v = getElementTopology(this,elemType)
 % Get element topology in terms of defined nodes.
 %
 % parameters:
-%   - elementEntity: short name for element
+%   - elemType: short name for element
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
 
 try
-    v = this.msh.(elementEntity).elems;
+    v = this.msh.(elemType).elems;
 catch e
     exception = MException('SetError:RequestedDataNotSet', ...
-        ['Element entities ' elementEntity ' are not initialized']);
+        ['Element entities ' elemType ' are not initialized']);
     throw(exception);
 end
 

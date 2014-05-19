@@ -1,15 +1,15 @@
-function v = getElementTags(this,elementEntityOrDim)
+function v = getElementTags(this,elemTypeOrDim)
 % Return element tags of given dimension or type
 %
 % parameters:
-%   - elementEntityOrDim: element short name (string) or dimension (int)
+%   - elemTypeOrDim: element short name (string) or dimension (int)
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
 %
 
-if isnumeric(elementEntityOrDim)
+if isnumeric(elemTypeOrDim)
     tags = [];
-    for k=find(this.reader.supportedTypes.dimension == elementEntityOrDim)
+    for k=find(this.reader.supportedTypes.dimension == elemTypeOrDim)
         if isfield(this.msh,this.reader.supportedTypes.names{k})
            tags = [tags unique(this.msh.(this.reader.supportedTypes.names{k}).tags)]; 
         end
@@ -19,10 +19,10 @@ if isnumeric(elementEntityOrDim)
 end
 
 try
-    v = this.msh.(elementEntityOrDim).tags;
+    v = this.msh.(elemTypeOrDim).tags;
 catch e
     v = [];
-    warning(['Requested tags for ' elementEntityOrDim ', but it does not exist']);        
+    warning(['Requested tags for ' elemTypeOrDim ', but it does not exist']);        
 end
 
 end
