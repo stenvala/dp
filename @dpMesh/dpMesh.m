@@ -75,12 +75,13 @@ classdef dpMesh < handle
     % remove element entities
     setRemoveElementEntities(this,elemType,tags);
     % tag changers
-    setTagsChange(this,from,to,elemType);
+    setTagsChange(this,from,to,elemType);    
     setTagsChangeByCoordFun(this,to,fun,elemType,from);
+    setTagsChangeByIndex(this,from,to,elemType);
     setTagsChangeBySubElementTag(this,to,elemType,subType,subTag,from);
     setTagsChangeByNearestCoord(this,to,coord,elemType);
     %% Displayers
-    c = displaySupportedElements(this,varargin);
+    displaySupportedElements(this,varargin);
     displayStatistics(this,varargin);
     %% Basic plotters
     % (h=handle)

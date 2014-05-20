@@ -1,4 +1,4 @@
-function c = displaySupportedElements(this,varargin)
+function displaySupportedElements(this,varargin)
   % Display data related to elements that are supported.
   %
   % varargin:
@@ -28,7 +28,5 @@ function c = displaySupportedElements(this,varargin)
       cprintf('*magenta',[num2str(this.reader{p}.vertices) '\n']);
     end
     disp(str);
-  end
-  
-  c = this.reader;
+  end    
 end

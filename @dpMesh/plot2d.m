@@ -2,8 +2,9 @@ function h = plot2d(this,varargin)
   % Plot 2d elements.
   %
   % varargin:
-  %   - edgeColor {default1}: color for edges
+  %   - colors {default1}: color for edges
   %   - faceColor {none}: color for faces
+  %   - view {[0 90]}: view, default value only in 2-D   
   %
   %   - see for more: help fig, help figAdjust
   %
@@ -14,30 +15,12 @@ function h = plot2d(this,varargin)
     defaults.view = [0 90];
   end
   
+  defaults.colors = getDefaultColors(1);
   defaults.faceColor = 'none';
-  defaults.edgeColor = getDefaultColors(1);
   param = setDefaultParameters(defaults,varargin);
-  
-  h = fig(varargin{:});
-  c = this.getCoordinates();
-  
-  params = {'edgeColor',param.edgeColor,...
-    'faceColor',param.faceColor};
-  
-  if isfield(this.msh,'tri')
-    t = this.getElementTopology('tri');
-    trimesh(t,c(:,1),c(:,2),c(:,3),params{:});
-    hold on
-  end
-  
-  if isfield(this.msh,'tri2')
-    t = this.getElementTopology('tri2');
-    trimesh(t(:,[1 2 3]),c(:,1),c(:,2),c(:,3),params{:});
-    hold on
-  end
-  hold off
-  view(defaults.view);
-  figAdjust(varargin{:});
-  
+  param.showTagColors = 0;
+  c = struct2fullcell(param);
+  this.plotPhysicalDomains2d(c{:});
+    
 end
 

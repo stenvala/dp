@@ -3,6 +3,7 @@ function h = plotPhysicalDomains2d(this,varargin)
   %
   % varargin:
   %   - colors {default}: color for edge groups based on tags
+  %   - faceAlpha {1}: face transparency
   %   - faceColor {none}: color for faces
   %   - showTagColor {1}: display tag colors in command window
   %
@@ -15,11 +16,12 @@ function h = plotPhysicalDomains2d(this,varargin)
   defaults.tags = sort(this.getElementTags(2));
   defaults.faceColor = 'none';
   defaults.showTagColors = 1;
+  defaults.faceAlpha = 1;
   param = setDefaultParameters(defaults,varargin);
   
   % make colors corresponding to tags
   param.colors = getColorCell(length(param.tags),param.colors);
-  
+    
   h = fig(varargin{:});
   c = this.getCoordinates();
   % triangles
@@ -34,10 +36,18 @@ function h = plotPhysicalDomains2d(this,varargin)
     tags = this.getElementTags('tri2');
     intPlotter(t,1:3,tags,c,param);
   end
+  % quadrangles
+  if isfield(this.msh,'quad')
+    t = this.getElementTopology('quad');
+    tags = this.getElementTags('quad');
+    intPlotter(t,1:4,tags,c,param);
+  end
   hold off
   
   this.setDimensionToView();
-  showTagColors('Physical Domains 2-D',param);
+  if param.showTagColors
+    showTagColors('Physical Domains 2-D',param);
+  end
   figAdjust(varargin{:});
 end
 
@@ -57,6 +67,7 @@ function intPlotter(poly,ind,tags,c,param)
       nodeInd = poly(p,ind);
       patch(x(nodeInd'),y(nodeInd'),z(nodeInd'),...
         ones(1,size(nodeInd,1)),...
+        'faceAlpha',param.faceAlpha,...
         'EdgeColor',param.colors{k},'FaceColor',faceColor);
       hold on
     end
