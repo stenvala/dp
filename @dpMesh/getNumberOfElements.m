@@ -5,9 +5,11 @@ function s = getNumberOfElements(this,elementTypes)
 %   - elemType {all possible}: short name for element (string or cell)
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
+%
 
+names = cellfun(@(x) x.name, this.reader,'UniformOutput',false);
 if nargin < 2
-    elementTypes = this.reader.supportedTypes.names;
+    elementTypes = names;
 elseif ~iscell(elementTypes)
     elementTypes = {elementTypes};
 end
@@ -15,8 +17,7 @@ end
 s = 0;
 
 for k=1:length(elementTypes)
-    if any(strcmp(this.reader.supportedTypes.names,...
-            elementTypes{k}))
+    if any(strcmp(names,elementTypes{k}))
        if isfield(this.msh,elementTypes{k})
           s = s + size(this.msh.(elementTypes{k}).tags,1);
        end        

@@ -8,13 +8,13 @@ function v = getElementTags(this,elemTypeOrDim)
 %
 
 if isnumeric(elemTypeOrDim)
-    tags = [];
-    for k=find(this.reader.supportedTypes.dimension == elemTypeOrDim)
-        if isfield(this.msh,this.reader.supportedTypes.names{k})
-           tags = [tags unique(this.msh.(this.reader.supportedTypes.names{k}).tags)]; 
+    tags = [];       
+    for k=find(cellfun(@(x) x.dim == elemTypeOrDim, this.reader))
+        if isfield(this.msh,this.reader{k}.name)
+           tags = [tags; unique(this.msh.(this.reader{k}.name).tags)]; 
         end
     end
-    v = unique(tags);
+    v = unique(tags);    
     return
 end
 

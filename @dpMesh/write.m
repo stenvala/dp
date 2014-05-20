@@ -33,8 +33,8 @@ fprintf(f,'$EndNodes\n','%s');
 fprintf(f,'$Elements\n','%s');
 el = this.getNumberOfElements();
 fprintf(f,'%i\n',el);
-for p=1:length(this.reader.supportedTypes.names)
-    type = this.reader.supportedTypes.names{p};
+for p=1:length(this.reader)
+    type = this.reader{p}.name;
     if isfield(this.msh,type)
         tags = this.msh.(type).tags;
         elem = this.msh.(type).elems;
@@ -42,14 +42,14 @@ for p=1:length(this.reader.supportedTypes.names)
         % number, type, number of tags = 2, tag1 (physical), tag2 (entity),
         % nodes, in gmsh, one really only needs physical tags
         lineInit = '%i %i %i %i %i';        
-        for k=1:this.reader.supportedTypes.vertices(p)
+        for k=1:this.reader{p}.vertices
             lineInit = [lineInit ' %i'];
         end                
         for k=1:size(tags,1)                      
             nodes = num2cell(elem(k,:));            
             fprintf(f,[lineInit '\n'],...
                 nums(k),...
-                this.reader.supportedTypes.gmsh.types(p),...
+                this.reader{p}.type.gmsh,...
                 2,tags(k),tags(k)+param.elemTypeOffset,...
                 nodes{:});
         end

@@ -9,13 +9,13 @@ function c = getElementsInUse(this,dim)
 
 c = {};
 
-for k=1:length(this.reader.supportedTypes.names)
-   if nargin > 1 && ~isempty(dim) && ~any(dim == this.reader.supportedTypes.dimension(k))
+for k=1:length(this.reader)
+   if nargin > 1 && ~isempty(dim) && ~any(dim == this.reader{k}.dim)
        continue
    end    
-   if isfield(this.msh,this.reader.supportedTypes.names{k}) && ...
-           size(this.msh.(this.reader.supportedTypes.names{k}).elems,1) > 0       
-      c{length(c)+1} = this.reader.supportedTypes.names{k};
+   if isfield(this.msh,this.reader{k}.name) && ...
+           size(this.msh.(this.reader{k}.name).elems,1) > 0       
+      c{length(c)+1} = this.reader{k}.name;
    end    
 end
 

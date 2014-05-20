@@ -80,7 +80,7 @@ classdef dpMesh < handle
         setTagsChangeBySubElementTag(this,to,elemType,subType,subTag,from);
         setTagsChangeByNearestCoord(this,to,coord,elemType);
         %% Displayers
-        displaySupportedElements(this,varargin);
+        c = displaySupportedElements(this,varargin);
         displayStatistics(this,varargin);
         %% Basic plotters 
         % (h=handle)

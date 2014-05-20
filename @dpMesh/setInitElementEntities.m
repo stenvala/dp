@@ -7,7 +7,7 @@ function setInitElementEntities(this,nmbElems)
 % Created: Antti Stenvall (antti@stenvall.fi)
 %
 
-for k=1:length(this.reader.supportedTypes.names)
+for k=1:length(this.reader)
     if nargin > 1
         if length(nmbElems) > 1
             e = nmbElems(k);
@@ -17,8 +17,8 @@ for k=1:length(this.reader.supportedTypes.names)
     else
         e = 0;
     end
-    this.msh.(this.reader.supportedTypes.names{k}).elems = zeros(e,this.reader.supportedTypes.vertices(k))*nan;
-    this.msh.(this.reader.supportedTypes.names{k}).nums = zeros(e,1)*nan;
-    this.msh.(this.reader.supportedTypes.names{k}).tags = zeros(e,1)*nan;
+    this.msh.(this.reader{k}.name).elems = zeros(e,this.reader{k}.vertices)*nan;
+    this.msh.(this.reader{k}.name).nums = zeros(e,1)*nan;
+    this.msh.(this.reader{k}.name).tags = zeros(e,1)*nan;
 end
 end

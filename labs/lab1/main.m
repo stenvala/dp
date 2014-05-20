@@ -20,7 +20,7 @@ elementOrder = 1; % your code needs to work with 1 and 2 (why not make it indepe
 % make mesh
 mfileName = [file '-' num2str(elementOrder) '.mat'];
 
-if ~exist(mfileName,'file')
+if ~exist(mfileName,'file') || 1
     msh.make('order',elementOrder);
     msh.read();
     msh.save('fileName',mfileName);

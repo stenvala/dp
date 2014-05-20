@@ -1,7 +1,10 @@
 function figAdjust(varargin)
 % Adjust some figure properties easily.
 % 
-% No default values for varargin give, if you want to use them.
+% No default values for varargin give, if you want to use them given them.
+% Property->value pairs are mainly function handles and their single
+% arguments. If you want something special, you shouldn't use this
+% function.
 %
 % varargin:
 %   - axis

@@ -1,4 +1,4 @@
-function h = fig(varargin) % init figure
+function h = fig(varargin)
 % Launch custom figure
 %
 % varargin:

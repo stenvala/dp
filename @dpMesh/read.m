@@ -42,20 +42,26 @@ nmbElems = str2num(elem);
 % Preallocating too much does not take a lot of time, but if it is necessary to
 % allocate element by element it takes a lot of time
 this.setInitElementEntities(nmbElems);
+% set up a data structure for mapping gmsh elements
+map = cell(100,1);
+for k=1:length(this.reader)
+    map{this.reader{k}.type.gmsh} = struct('name',this.reader{k}.name,...
+        'vertices',this.reader{k}.vertices);
+end
+
 % Go through all the elements that are defined
 for iElem = 1:nmbElems
     row = fgetl(fh);
     data = sscanf(row,'%d');
     elemNumber = data(1); % this is the element number
-    type = data(2); % This type is used to distinguish different types of elements
-    ind = this.reader.supportedTypes.gmsh.types == type;     
-    if abs(sum(ind)-1) < 0.1;        
-        elemType = this.reader.supportedTypes.names{ind};
+    type = data(2); % This type is used to distinguish different types of elements    
+    if ~isempty(map{type});
+        elemType = map{type}.name;
         % find first unset element        
         nextInd = find(isnan(this.msh.(elemType).nums),1);
         this.msh.(elemType).nums(nextInd) = elemNumber;
         this.msh.(elemType).tags(nextInd) = data(4);        
-        this.msh.(elemType).elems(nextInd,:) = data((end-this.reader.supportedTypes.vertices(ind)+1):end)';
+        this.msh.(elemType).elems(nextInd,:) = data((end-map{type}.vertices+1):end)';
     else                
         error(['Error in mesh file. Unknown element type: ' num2str(type) '.']);
     end

@@ -1,4 +1,4 @@
-function displaySupportedElements(this,varargin)
+function c = displaySupportedElements(this,varargin)
 % Display data related to elements that are supported.
 %
 % varargin:
@@ -19,13 +19,15 @@ disp(str);
 for k=param.dim
    cprintf('blue','Elements with dimension ');
    cprintf('*Blue',[num2str(k) '\n']);
-   ind = find(this.reader.supportedTypes.dimension == k);
+   ind = find(cellfun(@(x) x.dim == k, this.reader));
    for p=ind
-       cprintf('red',['  ' this.reader.supportedTypes.descriptions{p} '\n']);
+       cprintf('red',['  ' this.reader{p}.description '\n']);
        cprintf('black','    name: ');
-       cprintf('*magenta',[this.reader.supportedTypes.names{p} '\n']);
+       cprintf('*magenta',[this.reader{p}.name '\n']);
        cprintf('black','    number of vertices: ');
-       cprintf('*magenta',[num2str(this.reader.supportedTypes.vertices(p)) '\n']);
+       cprintf('*magenta',[num2str(this.reader{p}.vertices) '\n']);
    end   
    disp(str);
 end
+
+c = this.reader;

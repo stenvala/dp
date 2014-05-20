@@ -18,11 +18,11 @@ msh = dpMesh('project',file);
 % and remove the previous
 % msh = dpMeshPro(file); 
 
-elementOrder = 1; % your code needs to work with element order 1 and 2
+elementOrder = 2; % your code needs to work with element order 1 and 2
 % make mesh
 mfileName = [file '-' num2str(elementOrder) '.mat'];
 
-if ~exist(mfileName,'file') && 1
+if ~exist(mfileName,'file') || 1
     msh.make('order',elementOrder);
     msh.read();
     msh.save('fileName',mfileName);
@@ -73,7 +73,7 @@ scalex = 1e3; % scale the new solution, because otherwise it is not possible to 
 scaley = scalex;
 newCoords = oldCoords(:,1:2)+strain*[scalex 0;0 scaley];
 msh.setCoordinates(newCoords,'name','deformed');
-% display, below the old coordinates
+% display, behind the old coordinates and new in front
 msh.setCoordinatesActive('original');
 msh.plot2d('figure',1,'edgeColor','blue');
 msh.setCoordinatesActive('deformed');

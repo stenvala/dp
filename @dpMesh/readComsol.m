@@ -39,17 +39,19 @@ while 1
         break;
     end
     type = getElementType(lin);
-    if ~isSupportedType(type,this.reader.supportedTypes.comsol.names)
+    index = isSupportedType(type,this.reader);
+    if index == 0
         disp(['Cannot read elements of type ' type '. This element type is not supported.']);
         continue;
     end
-    numOfVertices = getNumOfVertices(type,this.reader.supportedTypes.names,this.reader.supportedTypes.vertices);
+    numOfVertices = this.reader{index}.vertices;
     lin = readUntilReached(f,' # number of elements');
     numOfElem = getNumFromLine(lin);
     readUntilReached(f,'# Elements');
     % elements 
-    if isfield(this.reader.comsol.permutation,type)
-        perm = this.reader.comsol.permutation.(type);
+    if isfield(this.reader{index},'permutation') && ...
+        isfield(this.reader{index}.permutation,'comsol')
+        perm = this.reader{index}.permutation.comsol;
     else
         perm = eye(numOfVertices);
     end        
@@ -75,11 +77,6 @@ function num = getNumFromLine(line)
 num = str2double(line(1:(strfind(line,' '))));
 end
 
-function int = getNumOfVertices(type,supportedTypes,supportedTypesVertices)
-ind = find(strcmp(supportedTypes,type));
-int = supportedTypesVertices(ind);
-end
-
 function str = getScanStr(numOfElem)
 str = '';
 for k=1:numOfElem
@@ -88,12 +85,16 @@ end
 str = strtrim(str);
 end
 
-function bool = isSupportedType(type,supportedTypes)
-if any(strcmp(supportedTypes,type))
-    bool = 1;
-else
-    bool = 0;
+function index = isSupportedType(type,reader)
+for k=1:length(reader)
+    if isfield(reader{k}.type,'comsol')
+       if strcmp(reader{k}.type.comsol,type) 
+           index = k;
+           return;
+       end
+    end
 end
+index = 0;
 end
 
 function line = readUntilReached(fileHandle,str)
