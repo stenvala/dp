@@ -14,16 +14,16 @@ file = 'modellingDomain';
 msh = dpMesh('project',file);
 % You are supposed to inherit dpMesh to dpMeshPro where you add your own
 % methods related to e.g. basis functions, they don't belong to solver class
-% msh = dpMeshPro(file); 
+% msh = dpMeshPro(file);
 
 elementOrder = 1; % your code needs to work with 1 and 2 (why not make it independent of this?)
 % make mesh
 mfileName = [file '-' num2str(elementOrder) '.mat'];
 
 if ~exist(mfileName,'file') || 1
-    msh.make('order',elementOrder);
-    msh.read();
-    msh.save('fileName',mfileName);
+  msh.make('order',elementOrder);
+  msh.read();
+  msh.save('fileName',mfileName);
 end
 % or load mesh to save time (remember that element order is fixed in mesh
 % generation)
@@ -31,11 +31,11 @@ msh.load('fileName',mfileName);
 
 %% What lets visualize the mesh
 if 1
-    msh.plot2d('figure',1); % plot mesh
-    msh.plotPhysicalDomains2d('figure',2); % show different domains in mesh
-    msh.plotPhysicalDomains1d('figure',3,'lineWidth',2); % plot physical boundaries        
-    % and display statistics
-    msh.displayStatistics();
+  msh.plot2d('figure',1); % plot mesh
+  msh.plotPhysicalDomains2d('figure',2); % show different domains in mesh
+  msh.plotPhysicalDomains1d('figure',3,'lineWidth',2); % plot physical boundaries
+  % and display statistics
+  msh.displayStatistics();
 end
 %% Here you define the material properties
 
@@ -59,12 +59,12 @@ prob.solveLaplace(msh);
 %% Simple post-processing. This is enough for your return
 coords = msh.getCoordinates();
 if elementOrder == 1
-   el = msh.getElementTopology('tri');
+  el = msh.getElementTopology('tri');
 else
-   el = msh.getElementTopology('tri2');
+  el = msh.getElementTopology('tri2');
 end
 trisurf(el(:,1:3),...
-    coords(:,1),...
-    coords(:,2),...
-    prob.getLaplaceSolutionAtNodes(),... % note, you need to add this method too
-    'edgecolor','none','facecolor','interp');
+  coords(:,1),...
+  coords(:,2),...
+  prob.getLaplaceSolutionAtNodes(),... % note, you need to add this method too
+  'edgecolor','none','facecolor','interp');

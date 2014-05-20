@@ -5,32 +5,33 @@
 % Created: Antti Stenvall (antti@stenvall.fi)
 
 function varargout = dpInit()
-
-now = strrep(mfilename('fullpath'),mfilename,'');
-
-if nargout
+  
+  now = strrep(mfilename('fullpath'),mfilename,'');
+  
+  if nargout
     varargout{1} = now;
     return
-end
-
-%% Add modules to Matlab path
-modules = {'',... % for adding the objects and this file
+  end
+  
+  %% Add modules to Matlab path
+  modules = {'',... % for adding the objects and this file
     'common',...
     };
-
-% Set Modules to path
-newPath = path;
-
-for k=1:length(modules)
+  
+  % Set Modules to path
+  newPath = path;
+  
+  for k=1:length(modules)
     newDir = [now modules{k}];
     if isempty(strfind(newPath,newDir)) % if does not yet exist
-        addpath(newDir);
+      addpath(newDir);
     end
+  end
+  
+  % add to path all the fileExchange tools
+  dirs = genpath([now 'fileExchange']);
+  addpath(dirs);
+  
+  disp('Matlab path data changed successfully.')
+  disp('Initialization finished.')
 end
-
-% add to path all the fileExchange tools
-dirs = genpath([now 'fileExchange']);
-addpath(dirs);
-
-disp('Matlab path data changed successfully.')
-disp('Initialization finished.')

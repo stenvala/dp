@@ -1,4 +1,4 @@
-%% This example explains the methods of dpMesh student needs for the 
+%% This example explains the methods of dpMesh student needs for the
 % implementation of the FEM solver
 %
 % Word of warning: when you see here msh.getCoordinates() you don't really
@@ -52,14 +52,14 @@ d3 = msh.getElementsInUse(3); % in 3-D returns volume elements
 msh.displaySupportedElements();
 % this loops through all the 2-dimensional elements
 for k=1:length(d2)
-   topol = msh.getElementTopology(d2{k}); % this returns the elements
-   tags = msh.getElementTags(d2{k}); % and this their tags (for giving e.g. correct material parameters)
+  topol = msh.getElementTopology(d2{k}); % this returns the elements
+  tags = msh.getElementTags(d2{k}); % and this their tags (for giving e.g. correct material parameters)
 end
 
 % to see all the tags you can look at the mesh, see the command window for
 % the definition of the colors i.e. their tags
 msh.plotPhysicalDomains2d('figure',1,...
-    'xlabel','x','ylabel','y');
+  'xlabel','x','ylabel','y');
 hold on
 msh.plotPhysicalDomains1d('figure',0,'lineWidth',5);
 hold off

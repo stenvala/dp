@@ -1,4 +1,4 @@
-%% Computer lab: linear isotropic elasticity - plane strain 
+%% Computer lab: linear isotropic elasticity - plane strain
 %
 % Created: Antti Stenvall (antti@stenvall.fi)
 % Contributed:
@@ -16,27 +16,27 @@ file = 'modellingDomainSparse'; % this will produce a mesh close to Clough's ori
 msh = dpMesh('project',file);
 % Because you already have dpMeshPro from lab1, you can uncomment next line
 % and remove the previous
-% msh = dpMeshPro(file); 
+% msh = dpMeshPro(file);
 
 elementOrder = 2; % your code needs to work with element order 1 and 2
 % make mesh
 mfileName = [file '-' num2str(elementOrder) '.mat'];
 
 if ~exist(mfileName,'file') || 1
-    msh.make('order',elementOrder);
-    msh.read();
-    msh.save('fileName',mfileName);
+  msh.make('order',elementOrder);
+  msh.read();
+  msh.save('fileName',mfileName);
 end
 % or load mesh to save time (remember that element order is fixed in mesh
 % generation)
 msh.load('fileName',mfileName);
 %% What lets visualize the mesh
 if 1
-    msh.plot2d('figure',1); % plot mesh
-    msh.plotPhysicalDomains2d('figure',2); % show different domains in mesh
-    msh.plotPhysicalDomains1d('figure',3,'lineWidth',2); % plot physical boundaries        
-    % and display statistics
-    msh.displayStatistics();
+  msh.plot2d('figure',1); % plot mesh
+  msh.plotPhysicalDomains2d('figure',2); % show different domains in mesh
+  msh.plotPhysicalDomains1d('figure',3,'lineWidth',2); % plot physical boundaries
+  % and display statistics
+  msh.displayStatistics();
 end
 
 %% Set up problem
@@ -50,8 +50,8 @@ material.lame1parameter = E*v/((1+v)*(1-2*v));
 material.shearModulus = 2.2e9;
 
 % domain properties
-domain.labels = [2001]; 
-domain.material = {material};    
+domain.labels = [2001];
+domain.material = {material};
 domain.source = {[0; -density*g]};
 
 % boundary conditions
@@ -67,7 +67,7 @@ prob.solvePlaneStrain(msh);
 
 %% Simple post-processing
 msh.setCoordinatesName('original');
-strain = prob.getSolutionPlaneStrain(); % strain in each coordinate 
+strain = prob.getSolutionPlaneStrain(); % strain in each coordinate
 oldCoords = msh.getCoordinates();
 scalex = 1e3; % scale the new solution, because otherwise it is not possible to see the difference
 scaley = scalex;
