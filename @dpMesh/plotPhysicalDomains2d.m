@@ -52,7 +52,7 @@ function h = plotPhysicalDomains2d(this,varargin)
 end
 
 % internal plotter function
-function intPlotter(poly,ind,tags,c,param)
+function intPlotter(poly,ind,tags,c,param)  
   x = c(:,1);
   y = c(:,2);
   z = c(:,3);

@@ -2,7 +2,7 @@ function h = plot2d(this,varargin)
   % Plot 2d elements.
   %
   % varargin:
-  %   - colors {default1}: color for edges
+  %   - colors {default1}: color for edges  
   %   - faceColor {none}: color for faces
   %   - view {[0 90]}: view, default value only in 2-D   
   %
@@ -16,11 +16,10 @@ function h = plot2d(this,varargin)
   end
   
   defaults.colors = getDefaultColors(1);
-  defaults.faceColor = 'none';
+  defaults.faceColor = 'none';  
   param = setDefaultParameters(defaults,varargin);
   param.showTagColors = 0;
   c = struct2fullcell(param);
-  h = this.plotPhysicalDomains2d(c{:});
-    
+  h = this.plotPhysicalDomains2d(c{:});    
 end
 

@@ -104,4 +104,8 @@ classdef dpMesh < handle
     setRemoveNaNelems(this);
     setRemoveUnusedElementEntities(this);
   end
+  methods (Access=private)
+    %% Phantom-constructor defined here
+    this = constructor(this,varargin)
+  end
 end

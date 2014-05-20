@@ -13,6 +13,7 @@ msh = dpMesh('project',project);
 msh.readComsol();
 % write to .msh
 msh.write();
+
 %% display the mesh that was read
 msh.plotPhysicalDomains2d('view',[0 90],'axis','equal',...
   'figure',1,'offsetx',1,'title','From Comsol mesh');

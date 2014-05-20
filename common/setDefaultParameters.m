@@ -1,5 +1,6 @@
 function def = setDefaultParameters(def,arr,subvalue)
-  % Set default parameters from a property->value list to struct
+  % Set default parameters from a property->value list to struct, include
+  % also those parameters that are not given in default
   %
   % parameters:
   %   - def: default values
@@ -26,4 +27,11 @@ function def = setDefaultParameters(def,arr,subvalue)
     end
   end
   
+  for k=1:2:length(arr)
+    if ~any(strcmp(f,arr{k}))
+      if length(arr) > k
+        def.(arr{k}) = arr{k+1};
+      end
+    end
+  end    
 end
