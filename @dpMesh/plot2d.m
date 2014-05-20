@@ -20,7 +20,7 @@ function h = plot2d(this,varargin)
   param = setDefaultParameters(defaults,varargin);
   param.showTagColors = 0;
   c = struct2fullcell(param);
-  this.plotPhysicalDomains2d(c{:});
+  h = this.plotPhysicalDomains2d(c{:});
     
 end
 

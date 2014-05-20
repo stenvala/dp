@@ -17,5 +17,5 @@ function h = plot3d(this,varargin)
   param = setDefaultParameters(defaults,varargin);
   param.showTagColors = 0;
   c = struct2fullcell(param);
-  this.plotPhysicalDomains3d(c{:});
+  h = this.plotPhysicalDomains3d(c{:});
 end

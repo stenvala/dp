@@ -6,7 +6,7 @@ function setDimensionToView(this)
   if this.dim == 2
     view([0 90]);
   else 
-    view([-18 54]);
+    view([-42 36]);
   end
   
 end
