@@ -87,7 +87,7 @@ function intPlotter(poly,faceMatrices,tags,c,param)
   z = c(:,3);
   for k=1:length(param.tags)
     if strcmp(param.edgeColor,'face')
-      edgeColor = param.color{k};
+      edgeColor = param.colors{k};
     else
       edgeColor = param.edgeColor;
     end
