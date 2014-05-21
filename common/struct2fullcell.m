@@ -6,6 +6,7 @@ function c = struct2fullcell(st)
   %
   % Created: Antti Stenvall (antti@stenvall.fi)
   %
+  
   f = fields(st);
   c = cell(1,2*length(f));
   for k=1:length(f)

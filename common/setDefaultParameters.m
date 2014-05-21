@@ -1,6 +1,6 @@
 function def = setDefaultParameters(def,arr,subvalue)
   % Set default parameters from a property->value list to struct, include
-  % also those parameters that are not given in default
+  % also those parameters that are not given in def.
   %
   % parameters:
   %   - def: default values
