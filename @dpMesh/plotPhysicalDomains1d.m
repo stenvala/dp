@@ -48,8 +48,10 @@ end
 % internal plotter function
 function intPlotter(x,y,z,tags,param)
   for k=1:length(param.tags)
-    inds = find(tags == param.tags(k));
+    inds = find(tags == param.tags(k));    
     for p=inds'
+      p
+      size(x)
       plot3(x(p,:),y(p,:),z(p,:),...
         'color',param.colors{k},...
         'lineWidth',param.lineWidth);

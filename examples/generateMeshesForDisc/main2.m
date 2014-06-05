@@ -1,8 +1,11 @@
 % Create mesh for round conductor
 
 clear all, close all, clc;
-r = 1e-3; % radius
-for elementLayers = [2:15 20 40 50]
+r = 1e-3; % radius of the disc
+% convert many meshes simultaneously. Define here how many edge elements are
+% added to one quarter of the disc perimeter when the disc is represented
+% with triangles
+for elementLayers = 10;%[2:15 20 40 50]
   close all
   clc
   
@@ -41,6 +44,7 @@ for elementLayers = [2:15 20 40 50]
     coords*diag([-1 1 1]);
     coords*diag([-1 -1 1]);
     coords*diag([1 -1 1])];
+  coords(abs(coords) < r*1e-5) = 0; % this removes the problem of some duplicate nodes
   rect = [rect;
     rect*[0 0 0 1;0 0 1 0;0 1 0 0; 1 0 0 0]+nodeNum;
     rect*[0 0 1 0;0 0 0 1;1 0 0 0; 0 1 0 0]+nodeNum*2;
@@ -53,17 +57,19 @@ for elementLayers = [2:15 20 40 50]
   msh.setRemoveDuplicateCoordinates();
   coords = msh.getCoordinates();  
   rect = msh.getMesh().quad.elems;
+  %edgesq = msh.getBoundaryOfElementGroup('quad',2001);
+  %msh.setElem('edg',edgesq,1001*ones(size(edgesq,1),1),size(rect,1)+(1:size(edgesq,1))');
   %msh.setTagsChangeByCoordFun(1,fun,'quad');
   %msh.setRemoveElementEntities('quad',1);
   msh.plot2d('figure',1,'height',10,'width',10);
   hold on
   theta = linspace(0,2*pi);
   plot(r*cos(theta),r*sin(theta),'k','linewidth',2);
+  %msh.plotPhysicalDomains1d('figure',0,'colors',{'r'},'lineWidth',2);
   hold off
   axis equal
   saveas(gcf,['quad-' num2str(elementLayers) '.png']);
-  msh.write('fileName',[pwd '/quad-' num2str(elementLayers) '.msh']);
-  
+  msh.write('fileName',[pwd '/quad-' num2str(elementLayers) '.msh']);  
   % make another mesh from triangles
   tri = zeros(2*size(rect,1),3);
   for k=1:size(rect,1)
@@ -84,9 +90,13 @@ for elementLayers = [2:15 20 40 50]
   msh2.setTagsChangeByCoordFun(1,fun,'tri');
   msh2.setRemoveElementEntities('tri',1);
   msh2.plot2d('figure',2,'offsetx',25,'height',10,'width',10);
-  hold on
+  edges = msh2.getBoundaryOfElementGroup('tri',2001);
+  % Add also edge to the representation
+  msh2.setElem('edg',edges,1001*ones(size(edges,1),1),size(tri,1)+(1:size(edges,1))');
+  hold on  
   theta = linspace(0,2*pi);
   plot(r*cos(theta),r*sin(theta),'k','linewidth',2);
+  msh2.plotPhysicalDomains1d('figure',0,'colors',{'r'},'lineWidth',2);
   hold off
   axis equal
   saveas(gcf,['tri-' num2str(elementLayers) '.png']);

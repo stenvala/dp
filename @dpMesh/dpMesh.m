@@ -52,6 +52,7 @@ classdef dpMesh < handle
     % st=struct
     % F=interpolant function
     % u=undefined / user should know
+    m = getBoundaryOfElementGroup(this,elemType,tag);
     s = getDim(this);
     m = getCoordinates(this);
     m = getCoordinatesAtElementCenter(this,elemType);
@@ -83,7 +84,7 @@ classdef dpMesh < handle
     setTagsChangeByCoordFun(this,to,fun,elemType,from);
     setTagsChangeByIndex(this,from,to,elemType);
     setTagsChangeBySubElementTag(this,to,elemType,subType,subTag,from);
-    setTagsChangeByNearestCoord(this,to,coord,elemType);
+    setTagsChangeByNearestCoord(this,to,coord,elemType);   
     %% Displayers
     displaySupportedElements(this,varargin);
     displayStatistics(this,varargin);
@@ -101,6 +102,7 @@ classdef dpMesh < handle
   methods (Access=protected)
     %% Getters
     s = getActiveChart(this); % use always this to get chart
+    st = getElementData(this,elemType); % loads data from this.reader
     %% Setters
     setDimensionToView(this);
     setInitElementEntities(this,nmbElems);
