@@ -55,7 +55,7 @@ classdef dpMesh < handle
     s = getDim(this);
     m = getCoordinates(this);
     m = getCoordinatesAtElementCenter(this,elemType);
-    [m v] = getElementsByTag(this,elemType,tag);
+    [m, v] = getElementsByTag(this,elemType,tag);
     v = getElementNumbers(this,elemType);
     v = getElementTags(this,elemType);
     m = getElementTopology(this,elemType);
@@ -70,8 +70,12 @@ classdef dpMesh < handle
     setCoordinatesActive(this,indOrName);
     s = setCoordinatesName(this,name);
     setCoordinatesTranslate(this,fun);
+    setElem(this,elemType,ent,tag,num);
     setInitData(this,varargin);
     setnVolumes(this);
+    % remove duplicate nodes coordinates and unused nodes
+    setRemoveDuplicateCoordinates(this);    
+    setRemoveUnusedNodes(this);
     % remove element entities
     setRemoveElementEntities(this,elemType,tags);
     % tag changers
@@ -103,6 +107,7 @@ classdef dpMesh < handle
     setInitReaderProperties(this);
     setRemoveNaNelems(this);
     setRemoveUnusedElementEntities(this);
+    setUpdateCoordinates(this,coordinates);
   end
   methods (Access=private)
     %% Phantom-constructor defined here

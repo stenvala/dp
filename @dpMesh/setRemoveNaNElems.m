@@ -10,16 +10,14 @@ function setRemoveNaNElems(this)
   for k=1:length(this.reader)
     type = this.reader{k}.name;
     if isfield(this.msh,type)
-      until = find(isnan(this.msh.(type).tags));
-      if ~isempty(until)
+      keep = ~isnan(this.msh.(type).tags);
+      if ~any(keep)
+        this.msh = rmfield(this.msh,type);
+      else
         f = fields(this.msh.(type));
-        until = until - 1;
         for p=1:length(f)
-          if until == 0
-            this.msh.(type).(f{p}) = [];
-          else
-            this.msh.(type).(f{p}) = this.msh.(type).(f{p})(1:until,:);
-          end
+          data = this.msh.(type).(f{p});
+          this.msh.(type).(f{p}) = data(keep,:);
         end
       end
     end

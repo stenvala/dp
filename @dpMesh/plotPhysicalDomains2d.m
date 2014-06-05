@@ -6,6 +6,7 @@ function h = plotPhysicalDomains2d(this,varargin)
   %   - faceAlpha {1}: face transparency
   %   - faceColor {none}: color for faces
   %   - showTagColor {1}: display tag colors in command window
+  %   - num {all}: which element numbers to plot
   %
   %   - see for more: help fig, help figAdjust
   %
@@ -17,6 +18,7 @@ function h = plotPhysicalDomains2d(this,varargin)
   defaults.faceColor = 'none';
   defaults.showTagColors = 1;
   defaults.faceAlpha = 1;
+  defaults.num = nan;
   param = setDefaultParameters(defaults,varargin);
   
   % make colors corresponding to tags
@@ -40,6 +42,11 @@ function h = plotPhysicalDomains2d(this,varargin)
   if isfield(this.msh,'quad')
     t = this.getElementTopology('quad');
     tags = this.getElementTags('quad');
+    if ~isnan(param.num)
+      ind = ismember(this.msh.quad.nums,param.num);
+      t = t(param.num,:);
+      tags = tags(param.num,:);
+    end          
     intPlotter(t,1:4,tags,c,param);
   end
   hold off

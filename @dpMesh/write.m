@@ -13,9 +13,8 @@ function write(this,varargin)
   defaults.elemTypeOffset = 1000; % in gmsh we give two tags to the elements: physical and elementary entity.
   % in dp we only save the physical, ee tag is given by adding a number to
   % physical tag number and this determines the offset for that
-  param = setDefaultParameters(defaults,varargin);
-  
-  f = fopen(param.fileName,'w');
+  param = setDefaultParameters(defaults,varargin);  
+  f = fopen(param.fileName,'w');    
   %% initials
   fprintf(f,'$MeshFormat\n','%s');
   fprintf(f,'2.2 0 8\n','%s');
@@ -33,7 +32,7 @@ function write(this,varargin)
   fprintf(f,'$Elements\n','%s');
   el = this.getNumberOfElements();
   fprintf(f,'%i\n',el);
-  for p=1:length(this.reader)
+  for p=1:length(this.reader)    
     type = this.reader{p}.name;
     if isfield(this.msh,type)
       tags = this.msh.(type).tags;
@@ -45,7 +44,7 @@ function write(this,varargin)
       for k=1:this.reader{p}.vertices
         lineInit = [lineInit ' %i'];
       end
-      for k=1:size(tags,1)
+      for k=1:size(tags,1)        
         nodes = num2cell(elem(k,:));
         fprintf(f,[lineInit '\n'],...
           nums(k),...
