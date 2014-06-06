@@ -53,6 +53,7 @@ classdef dpMesh < handle
     % F=interpolant function
     % u=undefined / user should know
     m = getBoundaryOfElementGroup(this,elemType,tag);
+    m = getConvexHull(this,elemType,tag);
     s = getDim(this);
     m = getCoordinates(this);
     m = getCoordinatesAtElementCenter(this,elemType);

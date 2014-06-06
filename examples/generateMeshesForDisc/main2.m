@@ -5,7 +5,7 @@ r = 1e-3; % radius of the disc
 % convert many meshes simultaneously. Define here how many edge elements are
 % added to one quarter of the disc perimeter when the disc is represented
 % with triangles
-for elementLayers = 10;%[2:15 20 40 50]
+for elementLayers = [2:15 20 40 50]
   close all
   clc
   
@@ -57,15 +57,16 @@ for elementLayers = 10;%[2:15 20 40 50]
   msh.setRemoveDuplicateCoordinates();
   coords = msh.getCoordinates();  
   rect = msh.getMesh().quad.elems;
-  %edgesq = msh.getBoundaryOfElementGroup('quad',2001);
-  %msh.setElem('edg',edgesq,1001*ones(size(edgesq,1),1),size(rect,1)+(1:size(edgesq,1))');
-  %msh.setTagsChangeByCoordFun(1,fun,'quad');
-  %msh.setRemoveElementEntities('quad',1);
+  %ch = msh.getConvexHull('quad',2001);
+  ch = msh.getBoundaryOfElementGroup('quad',2001);
+  msh.setElem('edg',ch,1001*ones(size(ch,1),1),size(rect,1)+(1:size(ch,1))');
+  msh.setTagsChangeByCoordFun(1,fun,'quad');
+  msh.setRemoveElementEntities('quad',1);
   msh.plot2d('figure',1,'height',10,'width',10);
   hold on
   theta = linspace(0,2*pi);
   plot(r*cos(theta),r*sin(theta),'k','linewidth',2);
-  %msh.plotPhysicalDomains1d('figure',0,'colors',{'r'},'lineWidth',2);
+  msh.plotPhysicalDomains1d('figure',0,'colors',{'r'},'lineWidth',2);
   hold off
   axis equal
   saveas(gcf,['quad-' num2str(elementLayers) '.png']);
