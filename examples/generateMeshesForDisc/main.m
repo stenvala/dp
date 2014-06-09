@@ -50,6 +50,7 @@ for elementLayers = [2:15 20 40 50]
   plot(r*cos(theta),r*sin(theta),'k','linewidth',2);
   hold off
   axis equal
+  msh.setRemoveElementEntities('edg');
   msh.setResetElementNumbering();
   msh.write('fileName',[pwd '/quad-regular-' num2str(elementLayers) '.msh']);
   saveas(gcf,['quad-regular-' num2str(elementLayers) '.png']);
@@ -81,6 +82,7 @@ for elementLayers = [2:15 20 40 50]
   plot(r*cos(theta),r*sin(theta),'k','linewidth',2);
   hold off
   axis equal
+  msh2.setRemoveElementEntities('edg');
   msh2.setResetElementNumbering();
   msh2.write('fileName',[pwd '/tri-regular-' num2str(elementLayers) '.msh']);
   saveas(gcf,['tri-regular-' num2str(elementLayers) '.png']);

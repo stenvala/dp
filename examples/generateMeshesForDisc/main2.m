@@ -70,6 +70,7 @@ for elementLayers = [2:15 20 40 50]
   hold off
   axis equal
   saveas(gcf,['quad-' num2str(elementLayers) '.png']);
+  msh.setRemoveElementEntities('edg')
   msh.setResetElementNumbering();
   msh.write('fileName',[pwd '/quad-' num2str(elementLayers) '.msh']);  
   % make another where elements that have even one node outside don't
@@ -88,6 +89,7 @@ for elementLayers = [2:15 20 40 50]
   hold off
   axis equal
   saveas(gcf,['quad-internal-' num2str(elementLayers) '.png']);
+  msh.setRemoveElementEntities('edg');
   msh.setResetElementNumbering();
   msh.write('fileName',[pwd '/quad-internal-' num2str(elementLayers) '.msh']);    
   % make another mesh from triangles
@@ -120,6 +122,7 @@ for elementLayers = [2:15 20 40 50]
   hold off
   axis equal
   saveas(gcf,['tri-' num2str(elementLayers) '.png']);
+  msh2.setRemoveElementEntities('edg');
   msh2.setResetElementNumbering();
   msh2.write('fileName',[pwd '/tri-' num2str(elementLayers) '.msh']);
 end
