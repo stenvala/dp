@@ -70,7 +70,26 @@ for elementLayers = [2:15 20 40 50]
   hold off
   axis equal
   saveas(gcf,['quad-' num2str(elementLayers) '.png']);
+  msh.setResetElementNumbering();
   msh.write('fileName',[pwd '/quad-' num2str(elementLayers) '.msh']);  
+  % make another where elements that have even one node outside don't
+  % belong to this
+  fun2 = @(xyz) sqrt(xyz(:,1).^2+xyz(:,2).^2) > (r+1e-10);
+  msh.setTagsChangeByCoordFunAnyNode(1,fun2,'quad');
+  msh.setRemoveElementEntities('quad',1);
+  msh.setRemoveElementEntities('edg',1001);
+  ch = msh.getBoundaryOfElementGroup('quad',2001);
+  msh.setElem('edg',ch,1001*ones(size(ch,1),1),nan);    
+  msh.plot2d('figure',3,'height',10,'width',10,'offsetx',25);
+  hold on
+  theta = linspace(0,2*pi);
+  plot(r*cos(theta),r*sin(theta),'k','linewidth',2);
+  msh.plotPhysicalDomains1d('figure',0,'colors',{'r'},'lineWidth',2);
+  hold off
+  axis equal
+  saveas(gcf,['quad-internal-' num2str(elementLayers) '.png']);
+  msh.setResetElementNumbering();
+  msh.write('fileName',[pwd '/quad-internal-' num2str(elementLayers) '.msh']);    
   % make another mesh from triangles
   tri = zeros(2*size(rect,1),3);
   for k=1:size(rect,1)
@@ -90,7 +109,7 @@ for elementLayers = [2:15 20 40 50]
   msh2.setElem('tri',tri,2001*ones(size(tri,1),1),(1:size(tri,1))');
   msh2.setTagsChangeByCoordFun(1,fun,'tri');
   msh2.setRemoveElementEntities('tri',1);
-  msh2.plot2d('figure',2,'offsetx',25,'height',10,'width',10);
+  msh2.plot2d('figure',2,'offsetx',45,'height',10,'width',10);
   edges = msh2.getBoundaryOfElementGroup('tri',2001);
   % Add also edge to the representation
   msh2.setElem('edg',edges,1001*ones(size(edges,1),1),size(tri,1)+(1:size(edges,1))');
@@ -101,5 +120,6 @@ for elementLayers = [2:15 20 40 50]
   hold off
   axis equal
   saveas(gcf,['tri-' num2str(elementLayers) '.png']);
+  msh2.setResetElementNumbering();
   msh2.write('fileName',[pwd '/tri-' num2str(elementLayers) '.msh']);
 end

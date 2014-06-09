@@ -32,6 +32,7 @@ function write(this,varargin)
   fprintf(f,'$Elements\n','%s');
   el = this.getNumberOfElements();
   fprintf(f,'%i\n',el);
+  elNumber = 1;
   for p=1:length(this.reader)    
     type = this.reader{p}.name;
     if isfield(this.msh,type)
@@ -47,10 +48,11 @@ function write(this,varargin)
       for k=1:size(tags,1)        
         nodes = num2cell(elem(k,:));
         fprintf(f,[lineInit '\n'],...
-          nums(k),...
+          elNumber, ... nums(k),...
           this.reader{p}.type.gmsh,...
           2,tags(k),tags(k)+param.elemTypeOffset,...
           nodes{:});
+        elNumber = elNumber + 1;
       end
     end
   end
