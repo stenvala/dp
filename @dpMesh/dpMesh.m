@@ -98,9 +98,10 @@ classdef dpMesh < handle
     % h = plot1d(this,varargin);
     h = plot2d(this,varargin);
     h = plot3d(this,varargin);
+    plotAddLabels(this,varargin);
     h = plotPhysicalDomains1d(this,varargin);
     h = plotPhysicalDomains2d(this,varargin);
-    h = plotPhysicalDomains3d(this,varargin);
+    h = plotPhysicalDomains3d(this,varargin);    
   end
   methods (Access=protected)
     %% Getters
