@@ -7,7 +7,7 @@ close all;
 clc
 
 %% Initialize mesh
-project = 'modellingDomain3DVariousElements';
+project = 'modellingDomain3DVariousElementsDense';
 
 msh = dpMesh('project',project,'dim',3);
 % read mesh
