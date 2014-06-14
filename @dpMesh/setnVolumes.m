@@ -19,5 +19,16 @@ function setnVolumes(this)
     this.msh.tri.nvol = 0.5*abs((jnode(:,1)-inode(:,1)).*(knode(:,2)-inode(:,2))-...
       (jnode(:,2)-inode(:,2)).*(knode(:,1)-inode(:,1)));
   end
-  
+  % quad
+  if isfield(this.msh,'quad') && size(this.msh.quad.elems,1) > 0    
+    h = abs(c(this.msh.quad.elems(:,1),1)-c(this.msh.quad.elems(:,2),1));
+    if sum(h) < 1e-10
+      h = abs(c(this.msh.quad.elems(:,2),1)-c(this.msh.quad.elems(:,3),1));
+    end
+    w = abs(c(this.msh.quad.elems(:,2),2)-c(this.msh.quad.elems(:,3),2));
+    if sum(w) < 1e-10
+      w = abs(c(this.msh.quad.elems(:,1),2)-c(this.msh.quad.elems(:,2),2));
+    end
+    this.msh.quad.nvol = w.*h;
+  end  
 end

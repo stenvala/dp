@@ -66,6 +66,7 @@ function read(this,varargin)
       error(['Error in mesh file. Unknown element type: ' num2str(type) '.']);
     end
   end
+  fclose(fh);
   this.setRemoveNaNElems();
   this.setRemoveUnusedElementEntities();
   props.description = 'msh file coordinates';
