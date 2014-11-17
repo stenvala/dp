@@ -23,7 +23,7 @@ function h = plotPhysicalDomains2d(this,varargin)
   
   % make colors corresponding to tags
   param.colors = getColorCell(length(param.tags),param.colors);
-    
+  
   h = fig(varargin{:});
   c = this.getCoordinates();
   % triangles
@@ -46,7 +46,7 @@ function h = plotPhysicalDomains2d(this,varargin)
       ind = ismember(this.msh.quad.nums,param.num);
       t = t(param.num,:);
       tags = tags(param.num,:);
-    end          
+    end
     intPlotter(t,1:4,tags,c,param);
   end
   hold off
@@ -59,7 +59,7 @@ function h = plotPhysicalDomains2d(this,varargin)
 end
 
 % internal plotter function
-function intPlotter(poly,ind,tags,c,param)  
+function intPlotter(poly,ind,tags,c,param)
   x = c(:,1);
   y = c(:,2);
   z = c(:,3);
@@ -72,10 +72,19 @@ function intPlotter(poly,ind,tags,c,param)
     p = tags == param.tags(k);
     if any(p)
       nodeInd = poly(p,ind);
-      patch(x(nodeInd'),y(nodeInd'),z(nodeInd'),...
-        ones(1,size(nodeInd,1)),...
-        'faceAlpha',param.faceAlpha,...
-        'EdgeColor',param.colors{k},'FaceColor',faceColor);
+      if size(faceColor,1) > 1
+        size(faceColor)
+        size(x(nodeInd'))
+        patch(x(nodeInd'),y(nodeInd'),z(nodeInd'),...
+          faceColor,...
+          'faceAlpha',param.faceAlpha,...
+          'EdgeColor','none');        
+      else
+        patch(x(nodeInd'),y(nodeInd'),z(nodeInd'),...
+          ones(1,size(nodeInd,1)),...
+          'faceAlpha',param.faceAlpha,...
+          'EdgeColor',param.colors{k},'FaceColor',faceColor);
+      end
       hold on
     end
   end

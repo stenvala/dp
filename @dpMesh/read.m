@@ -15,24 +15,43 @@ function read(this,varargin)
   % Handle
   fh = fopen(fullfile(param.directory,[param.fileName '.msh']), 'rt');
   % Some lines not needed
+  meshFormat = '';
   while 1
     row = fgetl(fh);
+    if strcmp(row,'$MeshFormat')
+      meshFormat = fgetl(fh);     
+    end
     if strcmp(row,'$Nodes')
       break;
     end
   end
+  if isempty(meshFormat)
+    error('Could not read mesh file format');
+  end
+  
+  switch (meshFormat)
+    case {'2.2 0 8'}
+      mf.coordNodes = 4;
+    case {'3 0 8'}
+      mf.coordNodes = 5;
+    otherwise
+      % hmm     
+  end
+  
   % number of nodes
   nmbNodes = str2num(fgetl(fh));
-  temp = fscanf(fh,'%f', 4*nmbNodes);
-  nodeData = reshape(temp,4,nmbNodes)';
+  temp = fscanf(fh,'%f', mf.coordNodes*nmbNodes);
+  nodeData = reshape(temp,mf.coordNodes,nmbNodes)';
   % Read all coordinates from nodes and save as default
   coords = nodeData(:,2:4);
   blank = fgetl(fh); % Empty
   if ~strcmp(blank,'$EndNodes')
     blank = fgetl(fh); % EndNodes
   end
+  blank
+  size(coords)
   row = fgetl(fh); % Elements
-  if ~strcmp(row,'$Elements')
+  if ~strcmp(row,'$Elements')    
     error('MSH-file error !');
   end
   % Number of elements in file
@@ -66,6 +85,7 @@ function read(this,varargin)
       error(['Error in mesh file. Unknown element type: ' num2str(type) '.']);
     end
   end
+  
   fclose(fh);
   this.setRemoveNaNElems();
   this.setRemoveUnusedElementEntities();

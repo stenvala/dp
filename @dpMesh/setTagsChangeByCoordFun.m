@@ -26,8 +26,8 @@ function setTagsChangeByCoordFun(this,to,fun,elemType,from)
     elemsTrue = find(values);
     elems = [];
     from = unique(from);
-    for k=1:length(from)
-      elems = [elems;find(this.msh.([type 'Tags']) == from(k))];
+    for k=1:length(from)        
+      elems = [elems;find(this.msh.(elemType).tags == from(k))];
     end
     elems = unique(elems);
     elemsTrue = intersect(elemsTrue,elems);

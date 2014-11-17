@@ -16,8 +16,12 @@ function setTagsChange(this,from,to,elemType)
   end
   
   try
+    if isempty(from)
     for k=1:length(from)
       this.msh.(elemType).tags(this.msh.(elemType).tags == from(k)) = to;
+    end
+    else
+      this.msh.(elemType).tags(:) = to;
     end
   catch e
     exception = MException('SetError:RequestedElementTypeDoesNotExist', ...

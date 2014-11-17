@@ -67,6 +67,7 @@ classdef dpMesh < handle
     s = getNumberOfElements(this,elemType);
     v = getnVolumes(this,elemType);
     st = getTime(this);
+    v = getTags(this,elemType);
     %% Setters
     s = setCoordinates(this,coordinates,varargin);
     setCoordinatesActive(this,indOrName);
@@ -76,7 +77,7 @@ classdef dpMesh < handle
     setInitData(this,varargin);
     setnVolumes(this);
     % remove duplicate nodes coordinates and unused nodes
-    setRemoveDuplicateCoordinates(this);    
+    setRemoveDuplicateCoordinates(this,tol);    
     setRemoveUnusedNodes(this);
     % remove element entities
     setRemoveElementEntities(this,elemType,tags);
