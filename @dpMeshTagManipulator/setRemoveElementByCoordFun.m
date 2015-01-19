@@ -38,7 +38,7 @@ function setRemoveElementByCoordFun(this,to,fun,elemType,from)
   end
   
   this.msh.(elemType).tags(elemsTrue) = nan;      
-  this.setRemoveNaNelems();  
+  this.setRemoveNaNelements();  
   
   disp(['Removed' num2str(numOfChanges) ' elements.'])
 end

@@ -27,7 +27,7 @@ function setRemoveElementEntities(this,elemType,tags)
         this.msh.(elemType).tags(this.msh.(elemType).tags == tags(k)) = nan;
       end
     end
-    this.setRemoveNaNelems();
+    this.setRemoveNaNelements();
   end  
   
 end

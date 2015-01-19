@@ -69,27 +69,15 @@ classdef dpMesh < handle
     st = getTime(this);
     v = getTags(this,elemType);
     %% Setters
+    % some advanced method for setting new coordinates
     s = setCoordinates(this,coordinates,varargin);
     setCoordinatesActive(this,indOrName);
     s = setCoordinatesName(this,name);
-    setCoordinatesTranslate(this,fun);
+    setCoordinatesTranslate(this,fun);    
     setElem(this,elemType,ent,tag,num);
     setInitData(this,varargin);
-    setnVolumes(this);
-    % remove duplicate nodes coordinates and unused nodes
-    setRemoveDuplicateCoordinates(this,tol);    
-    setRemoveUnusedNodes(this);
-    % remove element entities
-    setRemoveElementEntities(this,elemType,tags);
-    setRemoveElementByCoordFun(this,to,fun,elemType,from);
-    setResetElementNumbering(this);
-    % tag changers
-    setTagsChange(this,from,to,elemType);    
-    setTagsChangeByCoordFun(this,to,fun,elemType,from);
-    setTagsChangeByCoordFunAnyNode(this,to,fun,elemType,from);
-    setTagsChangeByIndex(this,from,to,elemType);
-    setTagsChangeBySubElementTag(this,to,elemType,subType,subTag,from);
-    setTagsChangeByNearestCoord(this,to,coord,elemType);   
+    % this can be utilized to compute volumes of elements
+    setnVolumes(this);        
     %% Displayers
     displaySupportedElements(this,varargin);
     displayStatistics(this,varargin);
@@ -113,7 +101,7 @@ classdef dpMesh < handle
     setDimensionToView(this);
     setInitElementEntities(this,nmbElems);
     setInitReaderProperties(this);
-    setRemoveNaNelems(this);
+    setRemoveNaNelements(this);
     setRemoveUnusedElementEntities(this);
     setUpdateCoordinates(this,coordinates);
   end

@@ -48,8 +48,6 @@ function read(this,varargin)
   if ~strcmp(blank,'$EndNodes')
     blank = fgetl(fh); % EndNodes
   end
-  blank
-  size(coords)
   row = fgetl(fh); % Elements
   if ~strcmp(row,'$Elements')    
     error('MSH-file error !');
@@ -87,7 +85,7 @@ function read(this,varargin)
   end
   
   fclose(fh);
-  this.setRemoveNaNElems();
+  this.setRemoveNaNelements();
   this.setRemoveUnusedElementEntities();
   props.description = 'msh file coordinates';
   props.name = 'gmsh';
