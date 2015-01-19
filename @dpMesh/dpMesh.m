@@ -81,6 +81,7 @@ classdef dpMesh < handle
     setRemoveUnusedNodes(this);
     % remove element entities
     setRemoveElementEntities(this,elemType,tags);
+    setRemoveElementByCoordFun(this,to,fun,elemType,from);
     setResetElementNumbering(this);
     % tag changers
     setTagsChange(this,from,to,elemType);    

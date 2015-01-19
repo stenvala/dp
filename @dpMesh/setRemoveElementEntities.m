@@ -26,8 +26,8 @@ function setRemoveElementEntities(this,elemType,tags)
       if isfield(this.msh,elemType)
         this.msh.(elemType).tags(this.msh.(elemType).tags == tags(k)) = nan;
       end
-    end    
+    end
     this.setRemoveNaNelems();
-  end
+  end  
   
 end
