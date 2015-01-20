@@ -1,7 +1,7 @@
-classdef dpMeshTagManipulator < dpMesh
-  % Extended mesh class for dp, manipulates mesh tags
+classdef dpMeshManipulator < dpMesh
+  % Extended mesh class for dp, manipulates mesh 
   % this is handy when mesh is generated with Comsol and specific tags are
-  % needed.
+  % needed, or something is oriented in a wrong way
   %
   % varargin:
   %   - see parent
@@ -11,10 +11,13 @@ classdef dpMeshTagManipulator < dpMesh
     
   methods (Access=public)
     %% Constructor (cannot be in separate file)
-    function this = dpMeshTagManipulator(varargin)
+    function this = dpMeshManipulator(varargin)
       % call parent constructor
       this = this@dpMesh(varargin{:});
     end    
+    % fix outer edge orientation
+    setFixBoundaryOrientation3D(this,varargin);  
+    setFixOrientation3D(this,varargin);
     % remove duplicate nodes coordinates and unused nodes
     setRemoveDuplicateCoordinates(this,tol);    
     setRemoveUnusedNodes(this);
