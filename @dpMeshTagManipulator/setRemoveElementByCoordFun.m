@@ -1,8 +1,7 @@
-function setRemoveElementByCoordFun(this,to,fun,elemType,from)
+function setRemoveElementByCoordFun(this,fun,elemType,from)
   % Tag remover: remove elements when the center coordinate fulfils condition
   %
-  % parameters:
-  %   - to
+  % parameters:  
   %   - fun (takes in matrix n*3 of element center coordinates)
   %   - elemType
   %   - from {all elements}: you can only set to change from some
@@ -12,9 +11,9 @@ function setRemoveElementByCoordFun(this,to,fun,elemType,from)
   if iscell(elemType)
     for k=1:length(elemType)
       if nargin > 4
-        this.setRemoveElementByCoordFun(to,fun,elemType{k},from);
+        this.setRemoveElementByCoordFun(fun,elemType{k},from);
       else
-        this.setRemoveElementByCoordFun(to,fun,elemType{k});
+        this.setRemoveElementByCoordFun(fun,elemType{k});
       end
     end
     return;
@@ -40,5 +39,5 @@ function setRemoveElementByCoordFun(this,to,fun,elemType,from)
   this.msh.(elemType).tags(elemsTrue) = nan;      
   this.setRemoveNaNelements();  
   
-  disp(['Removed' num2str(numOfChanges) ' elements.'])
+  disp(['Removed ' num2str(numOfChanges) ' elements.'])
 end

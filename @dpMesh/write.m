@@ -13,7 +13,7 @@ function write(this,varargin)
   defaults.elemTypeOffset = 1000; % in gmsh we give two tags to the elements: physical and elementary entity.
   % in dp we only save the physical, ee tag is given by adding a number to
   % physical tag number and this determines the offset for that
-  param = setDefaultParameters(defaults,varargin);  
+  param = setDefaultParameters(defaults,varargin);
   f = fopen(param.fileName,'w');    
   %% initials
   fprintf(f,'$MeshFormat\n','%s');

@@ -21,8 +21,7 @@ function setRemoveUnusedNodes(this)
   c = this.getCoordinates();  
   this.setUpdateCoordinates(c(~isnan(nodesInUse),:));
   % update all nodes to new values according to the removed nodes
-  newIndices = (1:size(c,1))';
-  size(nodesInUse)
+  newIndices = (1:size(c,1))';  
   for k=find(isnan(nodesInUse))'    
     newIndices(k:end) = newIndices(k:end)-1;    
   end

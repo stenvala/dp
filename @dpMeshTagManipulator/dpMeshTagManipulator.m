@@ -14,13 +14,13 @@ classdef dpMeshTagManipulator < dpMesh
     function this = dpMeshTagManipulator(varargin)
       % call parent constructor
       this = this@dpMesh(varargin{:});
-    end
+    end    
     % remove duplicate nodes coordinates and unused nodes
     setRemoveDuplicateCoordinates(this,tol);    
     setRemoveUnusedNodes(this);
     % remove element entities
     setRemoveElementEntities(this,elemType,tags);
-    setRemoveElementByCoordFun(this,to,fun,elemType,from);
+    setRemoveElementByCoordFun(this,fun,elemType,from);
     setResetElementNumbering(this);
     % tag changers
     setTagsChange(this,from,to,elemType);    
