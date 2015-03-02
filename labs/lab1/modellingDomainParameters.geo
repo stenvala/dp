@@ -1,1 +1,1 @@
-CharScale = 4.000000;
+CharScale = 0.500000;

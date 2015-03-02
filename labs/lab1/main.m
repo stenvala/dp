@@ -17,12 +17,13 @@ msh = dpMesh('project',file);
 % msh = dpMeshPro(file);
 
 elementOrder = 1; % your code needs to work with 1 and 2 (why not make it independent of this?)
-% make mesh
-mfileName = [file '-' num2str(elementOrder) '.mat'];
 
 % mesh parameters 
-param = struct('CharScale', 4);
-dpMesh.writeParamFile('modellingDomainParameters.geo',param);
+param = struct('CharScale', 0.5);
+dpMesh.writeParamFile('modellingDomainParameters.geo', param);
+
+% determine mesh file name
+mfileName = [file '-' num2str(elementOrder) '.mat'];
 
 if ~exist(mfileName,'file') || 1
   msh.make('order',elementOrder);
@@ -35,8 +36,7 @@ msh.load('fileName',mfileName);
 
 %% What lets visualize the mesh
 if 1
-  msh.plot2d('figure',1); % plot mesh  
-  return
+  msh.plot2d('figure',1); % plot mesh    
   msh.plotPhysicalDomains2d('figure',2); % show different domains in mesh
   msh.plotPhysicalDomains1d('figure',3,'lineWidth',2); % plot physical boundaries
   % and display statistics
