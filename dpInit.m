@@ -16,6 +16,7 @@ function varargout = dpInit()
   %% Add modules to Matlab path
   modules = {'',... % for adding the objects and this file
     'common',...
+    'pro',...
     };
   
   % Set Modules to path

@@ -93,6 +93,9 @@ classdef dpMesh < handle
     h = plotPhysicalDomains2d(this,varargin);
     h = plotPhysicalDomains3d(this,varargin);    
   end
+  methods (Static)
+    writeParamFile(fileName,param);
+  end
   methods (Access=protected)
     %% Getters
     s = getActiveChart(this); % use always this to get chart

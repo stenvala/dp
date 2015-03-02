@@ -5,8 +5,9 @@ CUlength = 10e-3;
 CUwidth = 3e-3;
 
 // MESHING PARAMETERS
-CharLength = 0.7*1e-3;
-CharLengthContact = 0.3*1e-3;
+Include "modellingDomainParameters.geo";
+CharLength = 0.7*1e-3*CharScale;
+CharLengthContact = 0.3*1e-3*CharScale;
 
 // POINTS
 Point(1) = {0, 0, 0, CharLength};

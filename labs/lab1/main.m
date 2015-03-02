@@ -20,6 +20,10 @@ elementOrder = 1; % your code needs to work with 1 and 2 (why not make it indepe
 % make mesh
 mfileName = [file '-' num2str(elementOrder) '.mat'];
 
+% mesh parameters 
+param = struct('CharScale', 4);
+dpMesh.writeParamFile('modellingDomainParameters.geo',param);
+
 if ~exist(mfileName,'file') || 1
   msh.make('order',elementOrder);
   msh.read();
@@ -31,7 +35,8 @@ msh.load('fileName',mfileName);
 
 %% What lets visualize the mesh
 if 1
-  msh.plot2d('figure',1); % plot mesh
+  msh.plot2d('figure',1); % plot mesh  
+  return
   msh.plotPhysicalDomains2d('figure',2); % show different domains in mesh
   msh.plotPhysicalDomains1d('figure',3,'lineWidth',2); % plot physical boundaries
   % and display statistics
@@ -68,3 +73,8 @@ trisurf(el(:,1:3),...
   coords(:,2),...
   prob.getLaplaceSolutionAtNodes(),... % note, you need to add this method too
   'edgecolor','none','facecolor','interp');
+
+% compute loss with different meshes and make convergence plots as a
+% function of nodes for both element orders
+loss = prob.laplaceIntegratePower()
+
