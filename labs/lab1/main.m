@@ -19,7 +19,7 @@ msh = dpMesh('project',file);
 elementOrder = 1; % your code needs to work with 1 and 2 (why not make it independent of this?)
 
 % mesh parameters 
-param = struct('CharScale', 1);
+param = struct('CharScale', 3);
 dpMesh.writeParamFile('modellingDomainParameters.geo', param);
 
 % determine mesh file name
@@ -76,5 +76,5 @@ trisurf(el(:,1:3),...
 
 % compute loss with different meshes and make convergence plots as a
 % function of nodes for both element orders
-loss = prob.laplaceIntegratePower()
+loss = prob.laplaceIntegrateEnergy()
 
