@@ -19,7 +19,7 @@ msh = dpMesh('project',file);
 elementOrder = 1; % your code needs to work with 1 and 2 (why not make it independent of this?)
 
 % mesh parameters 
-param = struct('CharScale', 0.5);
+param = struct('CharScale', 1);
 dpMesh.writeParamFile('modellingDomainParameters.geo', param);
 
 % determine mesh file name
@@ -61,7 +61,7 @@ prob.initLaplace(boundary,domain);
 % solve with given mesh
 prob.solveLaplace(msh);
 
-%% Simple post-processing. This is enough for your return
+%% Simple post-processing. This is almost enough for your return (missing the convergence plots)
 coords = msh.getCoordinates();
 if elementOrder == 1
   el = msh.getElementTopology('tri');

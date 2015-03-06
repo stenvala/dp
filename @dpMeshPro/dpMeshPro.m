@@ -15,8 +15,7 @@ classdef dpMeshPro < dpMesh
     function this = dpMeshPro(varargin)
       % call parent constructor
       this = this@dpMesh(varargin{:});
-    end
-    
+    end    
   end
   methods (Access=protected)
     

@@ -61,7 +61,7 @@ classdef dpMesh < handle
     v = getElementNumbers(this,elemType);
     v = getElementTags(this,elemType);
     m = getElementTopology(this,elemType);
-    c = getElementsInUse(this,dim);
+    c = getElementsInUse(this,dim);    
     st = getInitData(this);
     st = getMesh(this);
     s = getNumberOfElements(this,elemType);
