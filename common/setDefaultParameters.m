@@ -5,7 +5,7 @@ function def = setDefaultParameters(def,arr,subvalue)
   % parameters:
   %   - def: default values
   %   - arr: property->value list struct
-  %   - subvalue: is sub property->value list is searcher from struct
+  %   - subvalue: is sub property->value list is searched from struct
   %
   % Created: Antti Stenvall (antti@stenvall.fi)
   %

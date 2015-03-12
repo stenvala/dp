@@ -15,7 +15,20 @@ In addition, you develop post-processing facilities to @dpPostProcess.
 
 The example problem represents one quarter of a dipole magnet. The given material parameters are inverses of relative permeabilities. 
 In the post processing you will
-- compute its inductance when it has 100 turns
+- compute its inductance [H/m] when it has 100 turns
 for this, the best choice is to add an energy computation to @dpPostProcess and take care of inductance in the main file based on this
 - add functionality that displays the solution as a surface, like the simple post-processing but with possibility to set axis
 - add functionality that allows you to plot gradient (actually exterior derivative) of the potential and 2-D rotor (hodge exterior derivative)
+
+Solution should look like this
+
+![mesh](https://raw.githubusercontent.com/stenvala/dp/master/labs/lab2/figSolutions.png)
+
+Norm of magnetic flux density should look like this
+
+![mesh](https://raw.githubusercontent.com/stenvala/dp/master/labs/lab2/figNormGrad.png)
+
+And the gradient picture could look like this
+
+![mesh](https://raw.githubusercontent.com/stenvala/dp/master/labs/lab2/figGrad.png)
+

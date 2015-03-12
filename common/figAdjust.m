@@ -23,10 +23,10 @@ function figAdjust(varargin)
   %
   
   % properties that can be set
-  params = {'lim','xlim','ylim','axis','view','caxis',...
+  params = {'axis','lim','xlim','ylim','view','caxis',...
     'grid','box',...
     'xlabel','ylabel','zlabel','title'};
-  funs = {{@xlim,@ylim},@xlim,@ylim,@axis,@view,@caxis,...
+  funs = {@axis,{@xlim,@ylim},@xlim,@ylim,@view,@caxis,...
     @grid,@box,...
     @xlabel,@ylabel,@zlabel,@title};
   for k=1:length(params)
@@ -36,7 +36,7 @@ function figAdjust(varargin)
       if ~iscell(funs{k})
         feval(funs{k},value);
       else
-        for p=1:length(funs{k})
+        for p=1:length(funs{k})          
           feval(funs{k}{p},value);
         end
       end
