@@ -32,3 +32,12 @@ You need to modify only following classes in their corresponding folders:
 @dpMeshPro <- this is inherited from @dpMesh, don't modify @dpMesh but modify this
 You need to add some methods (and properties possibly) that consider at least basis functions and Jacobians.
 This is up to you. Separate mesh related methods here and don't put those to @dpSolver.
+
+The mesh for the example geometry looks like this
+
+![mesh](https://raw.githubusercontent.com/stenvala/dp/master/labs/lab1/figMesh.png)
+
+Your solution should look like this
+
+![mesh](https://raw.githubusercontent.com/stenvala/dp/master/labs/lab1/figSolution.png)
+
