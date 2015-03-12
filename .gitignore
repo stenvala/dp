@@ -1,0 +1,14 @@
+.pro
+problems/*
+gmsh/*
+.DS_Store
+*~
+*.mat
+*.mph
+*.msh
+*.png
+instructions
+*.zip
+modellingDomainParameters.geo
+pro
+*.mphtxt
