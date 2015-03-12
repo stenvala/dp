@@ -22,7 +22,7 @@ for this, the best choice is to add an energy computation to @dpPostProcess and 
 
 Solution should look like this
 
-![mesh](https://raw.githubusercontent.com/stenvala/dp/master/labs/lab2/figSolutions.png)
+![mesh](https://raw.githubusercontent.com/stenvala/dp/master/labs/lab2/figSolution.png)
 
 Norm of magnetic flux density should look like this
 
