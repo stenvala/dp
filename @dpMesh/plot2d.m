@@ -13,8 +13,7 @@ function h = plot2d(this,varargin)
   
   if this.dim == 2
     defaults.view = [0 90];
-  end
-  
+  end  
   defaults.colors = getDefaultColors(1);
   defaults.faceColor = 'none';  
   param = setDefaultParameters(defaults,varargin);

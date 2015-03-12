@@ -30,9 +30,14 @@ function setInitReaderProperties(this)
   edg2 = intInitElement('edg2','Second order edge',3,1,'vtx',{'gmsh',8});
   tri2 = intInitElement('tri2','Second order triangle',6,2,'edg2',{'gmsh',9});
   tet2 = intInitElement('tet2','Second order tetrahedron',10,3,'tri2',{'gmsh',11});
-  
+  %% third order elements
+  edg3 = intInitElement('edg3','Third order edge',4,1,'vtx',{'gmsh',26});
+  tri3 = intInitElement('tri3','Third order triangle',10,2,'edg3',{'gmsh',21});
+  %% four order elements
+  edg4 = intInitElement('edg4','Fourth order edge',5,1,'vtx',{'gmsh',27});
+  tri4 = intInitElement('tri4','Fourth order triangle',15,2,'edg4',{'gmsh',23});
   %% order here really doesn't matter when all are gathered together
-  this.reader = {vtx,edg,tri,quad,tet,hex,pri,pyr,edg2,tri2,tet2};
+  this.reader = {vtx,edg,tri,quad,tet,hex,pri,pyr,edg2,tri2,tet2,edg3,tri3,edg4,tri4};
 end
 
 function elem = intInitElement(name,desc,vert,dim,bnd,types)

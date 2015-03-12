@@ -38,6 +38,18 @@ function h = plotPhysicalDomains2d(this,varargin)
     tags = this.getElementTags('tri2');
     intPlotter(t,1:3,tags,c,param);
   end
+  % 3rd order triangles
+  if isfield(this.msh,'tri3')
+    t = this.getElementTopology('tri3');
+    tags = this.getElementTags('tri3');
+    intPlotter(t,1:3,tags,c,param);
+  end
+  % 4thorder triangles
+  if isfield(this.msh,'tri4')
+    t = this.getElementTopology('tri4');
+    tags = this.getElementTags('tri4');
+    intPlotter(t,1:3,tags,c,param);
+  end
   % quadrangles
   if isfield(this.msh,'quad')
     t = this.getElementTopology('quad');

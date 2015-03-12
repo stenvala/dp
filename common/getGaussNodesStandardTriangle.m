@@ -12,6 +12,8 @@ function [X W] = getGaussNodesStandardTriangle(degree)
   % Created: Antti Stenvall (antti@stenvall.fi)
   %
   
+  degree = max(degree,1);
+  
   switch degree
     case 1
       W = 1;
