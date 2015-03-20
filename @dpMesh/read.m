@@ -61,27 +61,33 @@ function read(this,varargin)
   this.setInitElementEntities(nmbElems);
   % set up a data structure for mapping gmsh elements
   map = cell(100,1);
+  nextInds = ones(size(map)); % keep here the position of the next element
   for k=1:length(this.reader)
     map{this.reader{k}.type.gmsh} = struct('name',this.reader{k}.name,...
-      'vertices',this.reader{k}.vertices);
+      'vertices',this.reader{k}.vertices);    
   end
   
   % Go through all the elements that are defined
-  for iElem = 1:nmbElems
+  % TODO: consider preallocation here and then remove unnecessary data
+  tic
+  for iElem = 1:nmbElems    
     row = fgetl(fh);
     data = sscanf(row,'%d');
     elemNumber = data(1); % this is the element number
-    type = data(2); % This type is used to distinguish different types of elements
+    type = data(2); % This type is used to distinguish different types of elements    
+    % save some time to remove the check of legal elements by commenting
+    % if, else, error, end
     if ~isempty(map{type});
-      elemType = map{type}.name;
-      % find first unset element
-      nextInd = find(isnan(this.msh.(elemType).nums),1);
+      elemType = map{type}.name;    
+      nextInd = nextInds(type);      
+      nextInds(type) = nextInd + 1;
       this.msh.(elemType).nums(nextInd) = elemNumber;
-      this.msh.(elemType).tags(nextInd) = data(4);
-      this.msh.(elemType).elems(nextInd,:) = data((end-map{type}.vertices+1):end)';
+      this.msh.(elemType).tags(nextInd) = data(4); % physical
+      this.msh.(elemType).tagsElementary(nextInd) = data(5); % elementary
+      this.msh.(elemType).elems(nextInd,:) = data((end-map{type}.vertices+1):end)';      
     else
       error(['Error in mesh file. Unknown element type: ' num2str(type) '.']);
-    end
+    end    
   end
   
   fclose(fh);

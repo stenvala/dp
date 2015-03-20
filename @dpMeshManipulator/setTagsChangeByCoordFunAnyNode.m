@@ -1,5 +1,6 @@
 function setTagsChangeByCoordFunAnyNode(this,to,fun,elemType,from)
-  % Tag changer: change element tag when any node fulfills this equation
+  % Tag changer: change element tag when any node in the domain fulfills
+  % the condition
   %
   % parameters:
   %   - to
@@ -12,35 +13,28 @@ function setTagsChangeByCoordFunAnyNode(this,to,fun,elemType,from)
   if iscell(elemType)
     for k=1:length(elemType)
       if nargin > 4
-        this.setTagsChange(to,fun,elemType{k},from);
+        this.setTagsChangeByCoordFunAnyNode(to,fun,elemType{k},from);
       else
-        this.setTagsChange(to,fun,elemType{k});
+        this.setTagsChangeByCoordFunAnyNode(to,fun,elemType{k});
       end
     end
     return;
   end
   
-  nodes= find(feval(fun,this.getCoordinates()));  
+  nodes = find(feval(fun,this.getCoordinates()));  
   elems = this.msh.(elemType).elems;
   elemsTrue = zeros(size(elems,1),1);
   for k=1:size(elems,2)
     [~, ind] = ismember(elems(:,k),nodes);
     elemsTrue(ind > 0) = 1;
-  end
+  end  
+  tags = unique(this.msh.(elemType).tags(elemsTrue == 1));
   
   if nargin > 4 && ~isempty(from)    
-    elems = [];
-    from = unique(from);
-    for k=1:length(from)      
-      elems = [elems;find(this.msh.([type 'Tags']) == from(k))];
-    end
-    elems = unique(elems);
-    elemsTrue = intersect(elemsTrue,elems);
-    numOfChanges = length(elemsTrue);
-  else    
-    numOfChanges = sum(elemsTrue);
+    tags = intersect(from,tags);
   end
-  
-  this.msh.(elemType).tags(find(elemsTrue)) = to;
-  disp(['Modified ' num2str(numOfChanges) ' tags to ' num2str(to) '.'])
+  for k=1:length(tags)
+    this.msh.(elemType).tags(this.msh.(elemType).tags == tags(k)) = to;
+  end
+  %disp(['Modified ' num2str(numOfChanges) ' tags to ' num2str(to) '.'])
 end

@@ -1,4 +1,4 @@
-function setRemoveNaNelems(this)
+function setRemoveNaNelements(this)
   % Remove NaN elements from the end of element topological structure.
   %
   % This is handy when preallocation of element space is done, or when
@@ -16,7 +16,7 @@ function setRemoveNaNelems(this)
       else
         f = fields(this.msh.(type));
         for p=1:length(f)
-          data = this.msh.(type).(f{p});
+          data = this.msh.(type).(f{p});          
           this.msh.(type).(f{p}) = data(keep,:);
         end
       end

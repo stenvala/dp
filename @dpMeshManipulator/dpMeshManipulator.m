@@ -24,13 +24,14 @@ classdef dpMeshManipulator < dpMesh
     % remove element entities
     setRemoveElementEntities(this,elemType,tags);
     setRemoveElementByCoordFun(this,fun,elemType,from);
-    setResetElementNumbering(this);
-    % tag changers
+    setResetElementNumbering(this);    
+    % tag changers    
     setTagsChange(this,from,to,elemType);    
     setTagsChangeByCoordFun(this,to,fun,elemType,from);
     setTagsChangeByCoordFunAnyNode(this,to,fun,elemType,from);
     setTagsChangeByIndex(this,from,to,elemType);
     setTagsChangeBySubElementTag(this,to,elemType,subType,subTag,from);
     setTagsChangeByNearestCoord(this,to,coord,elemType);   
+    setTagsSwap(this,elementTypes);
   end  
 end

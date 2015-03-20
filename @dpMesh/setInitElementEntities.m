@@ -20,5 +20,6 @@ function setInitElementEntities(this,nmbElems)
     this.msh.(this.reader{k}.name).elems = zeros(e,this.reader{k}.vertices)*nan;
     this.msh.(this.reader{k}.name).nums = zeros(e,1)*nan;
     this.msh.(this.reader{k}.name).tags = zeros(e,1)*nan;
+    this.msh.(this.reader{k}.name).tagsElementary = zeros(e,1)*nan;
   end
 end

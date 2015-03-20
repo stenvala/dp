@@ -33,7 +33,7 @@ classdef dpMesh < handle
   methods (Access=public)
     %% Constructor
     function this = dpMesh(varargin)
-      this = this.constructor(varargin{:});
+      this = this.constructor(varargin{:});      
     end
     %% mesh <-> living object interface
     load(this,varargin);

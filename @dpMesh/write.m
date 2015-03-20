@@ -14,7 +14,7 @@ function write(this,varargin)
   % in dp we only save the physical, ee tag is given by adding a number to
   % physical tag number and this determines the offset for that
   param = setDefaultParameters(defaults,varargin);
-  f = fopen(param.fileName,'w');    
+  f = fopen(param.fileName,'w');
   %% initials
   fprintf(f,'$MeshFormat\n','%s');
   fprintf(f,'2.2 0 8\n','%s');
@@ -22,18 +22,15 @@ function write(this,varargin)
   %% write coordinates
   fprintf(f,'$Nodes\n','%s');
   coords = this.getCoordinates();
-  fprintf(f,[num2str(size(coords,1)) '\n'],'%s');
-  for k=1:size(coords,1)
-    fprintf(f,'%i %e %e %e \n',k,...
-      coords(k,1),coords(k,2),coords(k,3));
-  end
+  fprintf(f,[num2str(size(coords,1)) '\n'],'%s');  
+  fprintf(f,'%i %e %e %e \n',[cumsum(ones(size(coords,1),1)) coords]');  
   fprintf(f,'$EndNodes\n','%s');
   %% elements
   fprintf(f,'$Elements\n','%s');
   el = this.getNumberOfElements();
   fprintf(f,'%i\n',el);
   elNumber = 1;
-  for p=1:length(this.reader)    
+  for p=1:length(this.reader)
     type = this.reader{p}.name;
     if isfield(this.msh,type)
       tags = this.msh.(type).tags;
@@ -41,19 +38,18 @@ function write(this,varargin)
       nums = this.msh.(type).nums;
       % number, type, number of tags = 2, tag1 (physical), tag2 (entity),
       % nodes, in gmsh, one really only needs physical tags
-      lineInit = '%i %i %i %i %i';
-      for k=1:this.reader{p}.vertices
-        lineInit = [lineInit ' %i'];
-      end
-      for k=1:size(tags,1)        
-        nodes = num2cell(elem(k,:));
-        fprintf(f,[lineInit '\n'],...
-          elNumber, ... nums(k),...
-          this.reader{p}.type.gmsh,...
-          2,tags(k),tags(k)+param.elemTypeOffset,...
-          nodes{:});
-        elNumber = elNumber + 1;
-      end
+      lineInit = ['%i %i %i %i %i' repmat(' %i',1,this.reader{p}.vertices)];
+      % next should be dome with repmat
+      %for k=1:this.reader{p}.vertices
+      %  lineInit = [lineInit ' %i'];
+      %end      
+      elNumbers = cumsum(ones(length(tags),1))-1+elNumber;
+      % next element number
+      elNumber = elNumbers(end) + 1;            
+      fprintf(f,[lineInit ' \n'],[elNumbers ...        
+        repmat(this.reader{p}.type.gmsh,length(elNumbers),1) ...
+        2*ones(size(elNumbers)) ...
+        tags tags+param.elemTypeOffset elem]');
     end
   end
   fprintf(f,'$EndElements\n','%s');
