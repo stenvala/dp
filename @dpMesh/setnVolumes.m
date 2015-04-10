@@ -10,6 +10,10 @@ function setnVolumes(this)
   
   c = this.getCoordinates();
   
+  % edg
+  if isfield(this.msh,'edg') && size(this.msh.edg.elems,1) > 0    
+    this.msh.edg.nvol = edg_(this.msh.edg.elems,c);
+  end  
   % tri
   if isfield(this.msh,'tri') && size(this.msh.tri.elems,1) > 0    
     this.msh.tri.nvol = tri_(this.msh.tri.elems,c);
@@ -47,4 +51,9 @@ function nvol = tri_(tri,c)
   knode = c(tri(:,3),:);
   nvol = 0.5*abs((jnode(:,1)-inode(:,1)).*(knode(:,2)-inode(:,2))-...
     (jnode(:,2)-inode(:,2)).*(knode(:,1)-inode(:,1)));
+end
+function nvol = edg_(edg,c)
+  inode = c(edg(:,1),:);
+  jnode = c(edg(:,2),:);  
+  nvol = abs(inode(:,1)-jnode(:,1));
 end

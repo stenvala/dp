@@ -30,6 +30,10 @@ classdef dpMesh < handle
     gmshPath % path to gmsh (gmsh is used for mesh generation)
     reader % different reader properties
   end
+  methods (Static)
+    [X W] = getGaussNodesStandardLine(polynomialDegree);
+    [X W] = getGaussNodesStandardTriangle(polynomialDegree);
+  end  
   methods (Access=public)
     %% Constructor
     function this = dpMesh(varargin)

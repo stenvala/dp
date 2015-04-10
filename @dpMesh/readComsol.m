@@ -23,11 +23,12 @@ function readComsol(this,varargin)
   if this.dim == 3
     coords = fscanf(f, '%g %g %g', [3,size(coords,1)])';
   elseif this.dim == 2
+    warning('Note! dimension is 2, ignoring z-coordinate');
     coords(:,1:2) = fscanf(f, '%g %g', [2,size(coords,1)])';
   else
     error('Sorry, cannot read 1-D meshes');
   end
-  
+      
   props.description = 'mphtxt file coordinates';
   props.name = 'comsol';
   this.setCoordinates(coords,'properties',props);

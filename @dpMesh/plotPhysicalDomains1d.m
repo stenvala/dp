@@ -15,6 +15,7 @@ function h = plotPhysicalDomains1d(this,varargin)
   defaults.colors = getDefaultColors();
   defaults.tags = sort(this.getElementTags(1));
   defaults.lineWidth = 1;
+  defaults.marker = '';
   defaults.showTagColors = 1;
   param = setDefaultParameters(defaults,varargin);
   
@@ -38,6 +39,18 @@ function h = plotPhysicalDomains1d(this,varargin)
     tags = this.getElementTags('edg2');
     intPlotter(x(t(:,1:2)),y(t(:,1:2)),z(t(:,1:2)),tags,param);
   end
+  % 3nd order edges
+  if isfield(this.msh,'edg3')
+    t = this.getElementTopology('edg3');
+    tags = this.getElementTags('edg3');
+    intPlotter(x(t(:,1:2)),y(t(:,1:2)),z(t(:,1:2)),tags,param);
+  end
+  % 4th order edges
+  if isfield(this.msh,'edg4')
+    t = this.getElementTopology('edg4');
+    tags = this.getElementTags('edg4');
+    intPlotter(x(t(:,1:2)),y(t(:,1:2)),z(t(:,1:2)),tags,param);
+  end
   hold off
   
   this.setDimensionToView();
@@ -49,10 +62,14 @@ end
 function intPlotter(x,y,z,tags,param)
   for k=1:length(param.tags)
     inds = find(tags == param.tags(k));    
-    for p=inds'      
-      plot3(x(p,:),y(p,:),z(p,:),...
-        'color',param.colors{k},...
-        'lineWidth',param.lineWidth);
+    props = {'color',param.colors{k},...
+        'lineWidth',param.lineWidth};
+    if ~strcmp(param.marker,'')
+      props{end+1} = 'marker';
+      props{end+1} = param.marker;
+    end    
+    for p=inds'                  
+      plot3(x(p,:),y(p,:),z(p,:),props{:});
       hold on
     end
   end
