@@ -38,10 +38,10 @@ figAdjust('xlim',xlim,'ylim',ylim,'axis','equal','view',[0 90]);
 saveas(gcf,'figSolution.png');
 
 %% post-processor object
-pp = dpPostProcess('problem',prob,'msh',msh);
+ppr = dpPostProcess('problem',prob,'msh',msh);
 
 %% plot norm of gradient
-pp.plotNormOfGradientOfNodalBasisFunctions(prob.getLaplaceSolutionAtNodes(),...
+ppr.plotNormOfGradientOfNodalBasisFunctions(prob.getLaplaceSolutionAtNodes(),...
   elementType,'figure',2,'xlim',xlim,'ylim',ylim,'axis','equal','height',12,'width',16);
 saveas(gcf,'figNormGrad.png');
 
@@ -51,7 +51,7 @@ yspace = linspace(1e-4,0.2,15);
 fig('figure',3,'height',12,'width',16);
 msh.plot2d('figure',0,'xlim',xlim,'ylim',ylim,'axis','equal','tags',[2001 2002],'colors',[0.8 0.8 0.8]);
 hold on
-pp.plotGradientOfNodalBasisFunctions(prob.getLaplaceSolutionAtNodes(),...
+ppr.plotGradientOfNodalBasisFunctions(prob.getLaplaceSolutionAtNodes(),...
   elementType,...
   'color','r',...
   'figure',0,...
@@ -66,3 +66,6 @@ matPro = prob.getDomainPropertyVector(elementTags,domain.labels,domain.nu);
 energy = dpPostProcess.integrateEnergyBasedOnNodalValues(msh,prob.getLaplaceSolutionAtNodes(),...
   elementType,matPro);
 % and you should do the rest to find out the inductance in [H/m]
+
+% finally display inductance
+inductance
