@@ -61,6 +61,7 @@ classdef dpMesh < handle
     s = getDim(this);
     m = getCoordinates(this);
     m = getCoordinatesAtElementCenter(this,elemType);
+    m = getCoordinatesAtBarycentricCoordinates(this,elemType,varargin)
     [m, v] = getElementsByTag(this,elemType,tag);
     v = getElementNumbers(this,elemType);
     v = getElementTags(this,elemType);

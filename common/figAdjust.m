@@ -19,6 +19,7 @@ function figAdjust(varargin)
   %   - ylim
   %   - zlabel
   %   - zlim
+  %   - axisEqualXY (set value, but it does not matter what it is)
   %
   % Created: Antti Stenvall (antti@stenvall.fi)
   %
@@ -26,10 +27,12 @@ function figAdjust(varargin)
   % properties that can be set
   params = {'axis','lim','xlim','ylim','zlim','view','caxis',...
     'grid','box',...
+    'axisEqualXY',...
     'xlabel','ylabel','zlabel','title'};
   funs = {@axis,{@xlim,@ylim},@xlim,@ylim,@zlim,@view,@caxis,...
     @grid,@box,...
-    @xlabel,@ylabel,@zlabel,@title};
+    @(dummy) set(gca, 'DataAspectRatio', [repmat(min(diff(get(gca, 'XLim')), diff(get(gca, 'YLim'))), [1 2]) diff(get(gca, 'ZLim'))]), ...
+    @xlabel,@ylabel,@zlabel,@title};   
   for k=1:length(params)
     ind = find(strcmp(varargin,params{k}));
     if ~isempty(ind)
@@ -42,5 +45,5 @@ function figAdjust(varargin)
         end
       end
     end
-  end
+  end    
 end
