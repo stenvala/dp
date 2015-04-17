@@ -2,15 +2,19 @@ function [v m] = getPointLocation(this,elemType,coords)
   % Get element and barycentric coordinates of points
   %
   % Finds elements where coordinates belong to. Returns also barycentric
-  % coordinates. Works for simplicial elements
+  % coordinates. Works for simplicial elements. If given coordinate is not
+  % in any element, v will have entry nan. This works at least in Matlab
+  % R2011b, in the newest Matlab, one could implement this in a different
+  % way. This does not scale well for large coords. In that case one should
+  % use different method.
   %
   % return values:
   %  - v: vector of size(coords,1) x 1 telling the elements
   %  - m: matrix of size(coords,1) x barycenters (i.e. dim + 1)
   %
   % parameters:
-  %  - elemType: element type
-  %  - coords: coordinates for which elements are searched
+  %  - elemType: element type (string)
+  %  - coords: coordinates for which elements are searched (2/3 x n matrix)
   %  
   % Created: Antti Stenvall (antti@stenvall.fi)  
   %
@@ -21,7 +25,7 @@ function [v m] = getPointLocation(this,elemType,coords)
    
   c = this.getCoordinates();
   elementTopology = this.getMesh().(elemType).elems;
-  % For this one needs to form element TriRep class for triangles 
+  % One needs instance TriRep class for triangles 
   trep = TriRep(elementTopology(:,1:3),c(:,1),c(:,2));
     
   X = coords(:,1);
@@ -32,6 +36,8 @@ function [v m] = getPointLocation(this,elemType,coords)
   baryEta = v;
   for k=1:size(X,1)
     for p=1:size(X,2)
+      % convert cartesian coordinates to barycentric and find the element
+      % where all barcentric coordinates are between 0 and 1
       barys = trep.cartToBary((1:size(trep,1))', repmat([X(k,p) Y(k,p)],size(trep,1),1));      
       el = find(all((0<=barys)&(barys<=1),2));      
       if isempty(el)
