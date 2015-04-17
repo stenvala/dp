@@ -33,6 +33,7 @@ classdef dpMesh < handle
   methods (Static)
     [X W] = getGaussNodesStandardLine(polynomialDegree);
     [X W] = getGaussNodesStandardTriangle(polynomialDegree);
+    [X W] = getGaussNodesStandardTetrahedron(polynomialDegree);
   end  
   methods (Access=public)
     %% Constructor

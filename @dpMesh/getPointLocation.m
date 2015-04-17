@@ -3,13 +3,14 @@ function [v m] = getPointLocation(this,elemType,coords)
   %
   % Finds elements where coordinates belong to. Returns also barycentric
   % coordinates. Works for simplicial elements. If given coordinate is not
-  % in any element, v will have entry nan. This works at least in Matlab
-  % R2011b, in the newest Matlab, one could implement this in a different
-  % way. This does not scale well for large coords. In that case one should
-  % use different method.
+  % in any element, v will have entry nan in corresponding index. This 
+  % works at least in Matlab  R2011b, in the newest Matlab, one could 
+  % implement this in a different way. This does not scale well for large 
+  % coords. In that case one should use different method.
   %
   % return values:
-  %  - v: vector of size(coords,1) x 1 telling the elements
+  %  - v: vector of size(coords,1) x 1, including the elements where the
+  %       given points locate
   %  - m: matrix of size(coords,1) x barycenters (i.e. dim + 1)
   %
   % parameters:
