@@ -26,7 +26,7 @@ function [v m] = getPointLocation(this,elemType,coords)
    
   c = this.getCoordinates();
   elementTopology = this.getMesh().(elemType).elems;
-  % One needs instance TriRep class for triangles 
+  % One needs instance TriRep class for triangles   
   trep = TriRep(elementTopology(:,1:3),c(:,1),c(:,2));
     
   X = coords(:,1);

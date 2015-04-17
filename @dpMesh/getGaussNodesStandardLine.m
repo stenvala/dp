@@ -98,5 +98,8 @@ function [X W] = getGaussNodesStandardLine(degree)
         -0.9602898564975363;
         0.9602898564975363]+1)/2;
     otherwise
+      % compute them
+      
+      
       error('Unknown degree for Gaussian quadrature.')
   end

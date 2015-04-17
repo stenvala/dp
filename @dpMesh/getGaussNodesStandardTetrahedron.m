@@ -21,6 +21,7 @@ function [X W] = getGaussNodesStandardTetrahedron(degree)
     0 1 0;
     0 0 1];
   
+  % this is FileFxchange function
   [X,Y,Z,W] = tetraquad(N,vert);
   X = [X Y Z];
   
