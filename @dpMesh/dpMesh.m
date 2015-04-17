@@ -70,9 +70,10 @@ classdef dpMesh < handle
     st = getInitData(this);
     st = getMesh(this);
     s = getNumberOfElements(this,elemType);
+    [v m] = getPointLocation(this,elemType,coords);
     v = getnVolumes(this,elemType);
     st = getTime(this);
-    v = getTags(this,elemType);
+    v = getTags(this,elemType);    
     %% Setters
     % some advanced method for setting new coordinates
     s = setCoordinates(this,coordinates,varargin);
