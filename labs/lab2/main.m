@@ -11,7 +11,7 @@ clc
 %% Initialize mesh
 % define modelling domain with a .geo file
 file = 'modellingDomain';
-msh = dpMeshPro(file);
+msh = dpMeshPro('project',file);
 
 elementOrder = 1; % your code needs to work with 1 and 2
 % make mesh

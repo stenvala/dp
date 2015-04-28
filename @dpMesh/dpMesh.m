@@ -80,7 +80,8 @@ classdef dpMesh < handle
     s = setCoordinates(this,coordinates,varargin);
     setCoordinatesActive(this,indOrName);
     s = setCoordinatesName(this,name);
-    setCoordinatesTranslate(this,fun);    
+    setCoordinatesTranslate(this,fun);
+    setDim(this,dim);
     setElem(this,elemType,ent,tag,num);
     setInitData(this,varargin);
     % this can be utilized to compute volumes of elements
@@ -92,7 +93,7 @@ classdef dpMesh < handle
     % (h=handle)
     % mesh visualization
     % - see varargin for plot customization: help fig, help figAdjust
-    % h = plot1d(this,varargin);
+    h = plot1d(this,varargin);
     h = plot2d(this,varargin);
     h = plot3d(this,varargin);
     plotAddLabels(this,varargin);

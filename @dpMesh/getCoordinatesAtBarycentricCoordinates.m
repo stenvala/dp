@@ -8,7 +8,7 @@ function m = getCoordinatesAtBarycentricCoordinates(this,elemType,varargin)
   %   - barycentric coordinates separated by comma, as many as them are
   %
   % Created: Antti Stenvall (antti@stenvall.fi)
-  %
+  %    
   
   c = this.getCoordinates();
   e = this.msh.(elemType).elems;
