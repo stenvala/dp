@@ -9,7 +9,7 @@ This platform is utilized in course Numerical Methods for Field Computations at 
 
 - Laplace problems
 - Poisson problems
-- Linear isotropic elasticity
+- Linear isotropic elasticity (plane strain in 2-d)
 
 Some useless/ful links.
 
