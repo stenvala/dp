@@ -1,4 +1,4 @@
-Labs
+yLabs
 ==
 
 Laboratory works are included in this folder.

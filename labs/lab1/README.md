@@ -3,7 +3,7 @@ Laplace problem
 
 This is the introduction for the first computer exercise return problem.
 
-The main program is in script ''main.m'' which should be at the end executable successfully by pressing F5.
+The main program is in script `main.m` which should be at the end, meaning when you return your problem, executable successfully by pressing F5.
 The main program utilizes your general 2-D Laplace solver.
 
 You will develop Laplace solver with following properties
@@ -22,16 +22,15 @@ You can change the CharScale parameter to scale the mesh element size in main.m.
 
 You need to modify only following classes in their corresponding folders:
 
-@dpSolver <- add your solver here with methods:
+dp.solvers.@poisson <- add your solver here with methods:
 - constructor
-- initLaplace(struct defining boundary conditions, struct defining domain properties)
-- solveLaplace(dpMesh object)
-- getLaplaceSolutionAtNodes()
-- laplaceIntegrateEnergy(), this computes the dissipated power exactly based on the solution
+- solve(dpMesh object)
+- getSolutionAtNodes()
+- integrateEnergy(), this computes the dissipated power exactly based on the solution
 
-@dpMeshPro <- this is inherited from @dpMesh, don't modify @dpMesh but modify this
+dp.@meshPro <- this is inherited from dp.@mesh, don't modify dp.@mesh but modify this
 You need to add some methods (and properties possibly) that consider at least basis functions and Jacobians.
-This is up to you. Separate mesh related methods here and don't put those to @dpSolver.
+This is up to you. Separate mesh related methods here and don't put those to your solver.
 
 The mesh for the example geometry looks like this
 
