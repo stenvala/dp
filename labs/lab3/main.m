@@ -1,5 +1,8 @@
 %% Computer lab: linear isotropic elasticity - plane strain
 %
+% Do not modify the function calls, but you need to add, for example
+% correct boundary conditions.
+%
 % Created: Antti Stenvall (antti@stenvall.fi)
 % Contributed:
 %
@@ -13,10 +16,7 @@ clc
 file = 'modellingDomainSparse'; % this will produce a mesh close to Clough's original mesh
 %file = 'modellingDomain';
 
-msh = dpMesh('project',file);
-% Because you already have dpMeshPro from lab1, you can uncomment next line
-% and remove the previous
-% msh = dpMeshPro(file);
+msh = dp.meshPro('project',file);
 
 elementOrder = 2; % your code needs to work with element order 1 and 2
 % make mesh
@@ -50,7 +50,7 @@ material.lame1parameter = E*v/((1+v)*(1-2*v));
 material.shearModulus = 2.2e9;
 
 % domain properties
-domain.labels = [2001];
+domain.labels = 2001;
 domain.material = {material};
 domain.source = {[0; -density*g]};
 
@@ -61,17 +61,17 @@ boundary.type = {'dir','neu'};
 boundary.value = {[0;0],@(x,y) g*1000*(0.3048*264-y)};
 
 % construct solver object and solve problem. You need to do this
-prob = dpSolver();
-prob.initPlaneStrain(boundary,domain);
-prob.solvePlaneStrain(msh);
+prob = dp.solvers.planeStrain();
+prob.init(boundary,domain);
+prob.solve(msh);
 
 %% Simple post-processing
 msh.setCoordinatesName('original');
-strain = prob.getSolutionPlaneStrain(); % strain in each coordinate
+xy = prob.getDisplacementAtNodes();
 oldCoords = msh.getCoordinates();
 scalex = 1e3; % scale the new solution, because otherwise it is not possible to see the difference
 scaley = scalex;
-newCoords = oldCoords(:,1:2)+strain*[scalex 0;0 scaley];
+newCoords = oldCoords(:,1:2)+xy*[scalex 0;0 scaley];
 msh.setCoordinates(newCoords,'name','deformed');
 % display, behind the old coordinates and new in front
 msh.setCoordinatesActive('original');

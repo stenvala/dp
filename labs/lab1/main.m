@@ -1,5 +1,11 @@
 %% Computer lab: Laplace solver in 2-D
 %
+% Do not modify this file, in your return it must be exactly like now with
+% few exceptions, you may change 
+%   - CharScale parameter on line 26
+%   - Change 1 to 0 in conditions of if on lines 32 and 42
+% For the convergence analysis, ake new file mainLoop.m
+%
 % Created: Antti Stenvall (antti@stenvall.fi)
 % Contributed:
 %
@@ -11,16 +17,14 @@ clc
 %% Initialize mesh
 % define modelling domain with a .geo file
 file = 'modellingDomain';
-msh = dpMesh('project',file);
-% You are supposed to inherit dpMesh to dpMeshPro where you add your own
-% methods related to e.g. basis functions, they don't belong to solver class
-% msh = dpMeshPro(file);
+% dp.meshPro is the mesh object that you can change
+msh = dp.meshPro('project',file);
 
 elementOrder = 1; % your code needs to work with 1 and 2 (why not make it independent of this?)
 
 % mesh parameters 
 param = struct('CharScale', 3);
-dpMesh.writeParamFile('modellingDomainParameters.geo', param);
+dp.mesh.writeParamFile('modellingDomainParameters.geo', param);
 
 % determine mesh file name
 mfileName = [file '-' num2str(elementOrder) '.mat'];
@@ -34,7 +38,7 @@ end
 % generation)
 msh.load('fileName',mfileName);
 
-%% What lets visualize the mesh
+%% Visualizes the mesh
 if 1
   msh.plot2d('figure',1); % plot mesh    
   msh.plotPhysicalDomains2d('figure',2); % show different domains in mesh
@@ -55,26 +59,22 @@ boundary.type = {'neu','dir','dir'};
 boundary.value = {0,1,0};
 
 % construct solver object
-prob = dpSolver();
+prob = dp.solvers.poisson();
 % init Laplace problem
-prob.initLaplace(boundary,domain);
+prob.init(boundary,domain);
 % solve with given mesh
-prob.solveLaplace(msh);
+prob.solve(msh);
 
 %% Simple post-processing. This is almost enough for your return (missing the convergence plots)
 coords = msh.getCoordinates();
-if elementOrder == 1
-  el = msh.getElementTopology('tri');
-else
-  el = msh.getElementTopology('tri2');
-end
+elementType = msh.getSimplexElementType();
+el = msh.getElementTopology(elementType);
 trisurf(el(:,1:3),...
   coords(:,1),...
   coords(:,2),...
-  prob.getLaplaceSolutionAtNodes(),... % note, you need to add this method too
+  prob.getSolutionAtNodes(),... % note, you need to add this method too
   'edgecolor','none','facecolor','interp');
 
 % compute loss with different meshes and make convergence plots as a
 % function of nodes for both element orders
-loss = prob.laplaceIntegrateEnergy()
-
+loss = 2*prob.getTotalEnergy()*1e-8

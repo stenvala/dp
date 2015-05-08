@@ -8,7 +8,7 @@ clc
 %% Initialize mesh
 project = 'modellingDomain2D';
 
-msh = dpMesh('project',project);
+msh = dp.dpMesh('project',project);
 % read mesh
 msh.readComsol();
 % write to .msh
