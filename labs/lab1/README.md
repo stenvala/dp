@@ -22,13 +22,13 @@ You can change the CharScale parameter to scale the mesh element size in main.m.
 
 You need to modify only following classes in their corresponding folders:
 
-dp.solvers.@poisson <- add your solver here with methods:
+`dp.solvers.@poisson` <- add your solver here with methods:
 - constructor
 - solve(dpMesh object)
 - getSolutionAtNodes()
 - integrateEnergy(), this computes the dissipated power exactly based on the solution
 
-dp.@meshPro <- this is inherited from dp.@mesh, don't modify dp.@mesh but modify this
+`dp.@meshPro` <- this is inherited from `dp.@mesh`, don't modify `dp.@mesh` but modify this
 You need to add some methods (and properties possibly) that consider at least basis functions and Jacobians.
 This is up to you. Separate mesh related methods here and don't put those to your solver.
 
