@@ -5,4 +5,4 @@ Ray Clough utilised the word Finite Element Method first time in the world in hi
 
 To simplify the constitutive law, the material is isotropic and linear. Extend the `dp.solvers.@planeStrain` object to consider also this problem so that the `main.m` file can be executed without errors. You cannot assume that there is only one domain tag, though in this example there is only one.
 
-![mesh](https://raw.githubusercontent.com/stenvala/dp/master/labs/lab3/figDeformation.png)
+![mesh](https://raw.githubusercontent.com/stenvala/dp/packages/labs/lab3/figDeformation.png)
