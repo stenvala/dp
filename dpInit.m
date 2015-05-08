@@ -32,7 +32,7 @@ function varargout = dpInit(reset)
   end    
   
   %% Add modules to Matlab path
-  modules = {'',... % for adding the objects, solvers module, and this file         
+  modules = {'',... % for adding the packages
     };
   
   % Set Modules to path

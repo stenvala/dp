@@ -8,7 +8,7 @@ clc
 %% Initialize mesh
 project = 'modellingDomain';
 
-msh = dpMesh('project',project);
+msh = dp.mesh('project',project);
 % generate mesh
 msh.make();
 % read mesh

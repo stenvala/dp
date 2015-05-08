@@ -1,4 +1,4 @@
-classdef meshManipulator < dpMesh
+classdef meshManipulator < dp.mesh
   % Extended mesh class for dp, manipulates mesh 
   % this is handy when mesh is generated with Comsol and specific tags are
   % needed, or something is oriented in a wrong way
@@ -11,9 +11,9 @@ classdef meshManipulator < dpMesh
     
   methods (Access=public)
     %% Constructor (cannot be in separate file)
-    function this = dpMeshManipulator(varargin)
+    function this = meshManipulator(varargin)
       % call parent constructor
-      this = this@dpMesh(varargin{:});
+      this = this@dp.mesh(varargin{:});
     end    
     % fix outer edge orientation
     setFixBoundaryOrientation3D(this,varargin);  

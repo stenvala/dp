@@ -13,19 +13,19 @@ function displaySupportedElements(this,varargin)
   str = '---------------------';
   
   disp(str);
-  cprintf('*black','dpMesh supports following element types\n');
+  fileExchange.cprintf.cprintf('*black','dpMesh supports following element types\n');
   disp(str);
   
   for k=param.dim
-    cprintf('blue','Elements with dimension ');
-    cprintf('*Blue',[num2str(k) '\n']);
+    fileExchange.cprintf.cprintf('blue','Elements with dimension ');
+    fileExchange.cprintf.cprintf('*Blue',[num2str(k) '\n']);
     ind = find(cellfun(@(x) x.dim == k, this.reader));
     for p=ind
-      cprintf('red',['  ' this.reader{p}.description '\n']);
-      cprintf('black','    name: ');
-      cprintf('*magenta',[this.reader{p}.name '\n']);
-      cprintf('black','    number of vertices: ');
-      cprintf('*magenta',[num2str(this.reader{p}.vertices) '\n']);
+      fileExchange.cprintf.cprintf('red',['  ' this.reader{p}.description '\n']);
+      fileExchange.cprintf.cprintf('black','    name: ');
+      fileExchange.cprintf.cprintf('*magenta',[this.reader{p}.name '\n']);
+      fileExchange.cprintf.cprintf('black','    number of vertices: ');
+      fileExchange.cprintf.cprintf('*magenta',[num2str(this.reader{p}.vertices) '\n']);
     end
     disp(str);
   end    

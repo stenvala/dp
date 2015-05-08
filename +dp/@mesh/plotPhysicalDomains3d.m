@@ -73,7 +73,7 @@ function h = plotPhysicalDomains3d(this,varargin)
     
   this.setDimensionToView();
   if param.showTagColors
-    showTagColors('Physical Domains 3-D',param);
+    common.showTagColors('Physical Domains 3-D',param);
   end
   
   common.figAdjust(varargin{:});

@@ -23,7 +23,7 @@ clc
 project = 'modellingDomain';
 % this constructs the project
 % dim defines the maximum dimension
-msh = dpMesh('project',project,'dim',2);
+msh = dp.mesh('project',project,'dim',2);
 % lets give title to our project so we later remember what this is about
 msh.setInitData('title','Guide for FEM related methods');
 % generate mesh (this assumes that {project}.geo exists) gmsh is used

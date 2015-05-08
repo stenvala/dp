@@ -8,13 +8,13 @@ function m = getBoundaryOfElementGroup(this,elemType,tag)
   %
   % Created: Antti Stenvall (antti@stenvall.fi)
   %
-  
+
   tags = this.msh.(elemType).tags;
   elem = this.msh.(elemType).elems(tags == tag,:);
   
   c = this.getCoordinates();
   if strcmp(elemType,'tri')
-    TR = triangulation(elem,c(:,1),c(:,2));
+    TR = TriRep(elem,c(:,1),c(:,2));
     m = freeBoundary(TR);
   elseif strcmp(elemType,'quad')
     nodes = unique(elem(:));

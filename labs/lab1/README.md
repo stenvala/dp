@@ -3,7 +3,7 @@ Laplace problem
 
 This is the introduction for the first computer exercise return problem.
 
-The main program is in script main.m which should be at the end executable successfully by pressing F5.
+The main program is in script ''main.m'' which should be at the end executable successfully by pressing F5.
 The main program utilizes your general 2-D Laplace solver.
 
 You will develop Laplace solver with following properties

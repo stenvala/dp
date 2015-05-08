@@ -8,7 +8,7 @@ clc
 %% Initialize mesh
 project = 'modellingDomain3D';
 
-msh = dpMesh('project',project,'dim',3);
+msh = dp.meshManipulator('project',project,'dim',3);
 % read mesh
 msh.readComsol();
 % change some tags on the boundary

@@ -9,7 +9,7 @@ clc
 %% Initialize mesh
 project = 'modellingDomain3DVariousElementsDense';
 
-msh = dpMesh('project',project,'dim',3);
+msh = dp.meshManipulator('project',project,'dim',3);
 % read mesh
 msh.readComsol();
 % remove element entities

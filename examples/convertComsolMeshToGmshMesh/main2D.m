@@ -8,7 +8,7 @@ clc
 %% Initialize mesh
 project = 'modellingDomain2D';
 
-msh = dp.dpMesh('project',project);
+msh = dp.mesh('project',project);
 % read mesh
 msh.readComsol();
 % write to .msh
@@ -18,7 +18,7 @@ msh.write();
 msh.plotPhysicalDomains2d('view',[0 90],'axis','equal',...
   'figure',1,'offsetx',1,'title','From Comsol mesh');
 
-msh2 = dpMesh('project',project);
+msh2 = dp.meshManipulator('project',project);
 msh2.read();
 
 % change element tag numbers (just for fun)
