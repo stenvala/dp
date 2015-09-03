@@ -27,7 +27,7 @@ function h = fig(varargin)
     h = nan;
     return
   end
-  
+   
   size = [param.offsetx param.offsety param.width param.height];
   h = figure(param.figure);
   set(gcf,'Unit','centimeters',...

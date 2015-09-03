@@ -15,6 +15,9 @@ classdef meshManipulator < dp.mesh
       % call parent constructor
       this = this@dp.mesh(varargin{:});
     end    
+    % create new entities
+    constructFullEdgeStructure(this,tag);
+    
     % fix outer edge orientation
     setFixBoundaryOrientation3D(this,varargin);  
     setFixOrientation3D(this,varargin);

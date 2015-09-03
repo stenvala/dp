@@ -71,6 +71,7 @@ classdef mesh < handle
     st = getInitData(this);
     st = getMesh(this);
     s = getNumberOfElements(this,elemType);
+    s = getNumberOfNodes(this);
     [v m] = getPointLocation(this,elemType,coords);
     v = getnVolumes(this,elemType);
     [strElem strBnd] = getSimplexElementType(this);
